@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:buyora_dev}
+    username: ${DB_USERNAME:buyora}
+    password: ${DB_PASSWORD:buyora_dev_password}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      pool-name: BuyoraHikariPool
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 2000ms
+      jedis:
+        pool:
+          max-active: 10
+          max-idle: 5
+          min-idle: 1
+  jpa:
+    show-sql: false
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+springdoc:
+  swagger-ui:
+    enabled: true
+
+logging:
+  level:
+    com.buyora.api: DEBUG
+    org.springframework.security: INFO
+    org.flywaydb: INFO
+    root: INFO
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n'
+
+buyora:
+  security:
+    cookie:
+      secure: false
+      same-site: Lax
+    cors:
+      allowed-origins: http://localhost:3000,http://localhost:3001

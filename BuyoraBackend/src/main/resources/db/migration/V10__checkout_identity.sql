@@ -1,0 +1,2 @@
+ALTER TABLE orders ADD COLUMN guest_cart_id VARCHAR(100);
+ALTER TABLE orders ADD COLUMN idempotency_key VARCHAR(100) UNIQUE;
