@@ -1,0 +1,9 @@
+
+ RUN  v5.0.1 C:/Users/vishn/Desktop/Projects/Buyora/BuyoraFrontend
+
+
+ Test Files  12 passed (12)
+      Tests  68 passed (68)
+   Start at  23:08:25
+   Duration  11.86s (environment 65%, setup 20%, import 9%, transform 4%, tests 1%, worker 1%)
+

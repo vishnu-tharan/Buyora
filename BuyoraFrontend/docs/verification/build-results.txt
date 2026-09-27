@@ -1,0 +1,67 @@
+▲ Next.js 16.3.6 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 29ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1640ms
+  Running TypeScript ...
+  Finished TypeScript in 3.1s ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/34) ...
+  Generating static pages using 15 workers (8/34) 
+  Generating static pages using 15 workers (16/34) 
+  Generating static pages using 15 workers (25/34) 
+✓ Generating static pages using 15 workers (34/34) in 836ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ○ /account
+├ ○ /account/addresses
+├ ○ /account/orders
+├ ƒ /account/orders/[orderNumber]
+├ ○ /account/profile
+├ ○ /account/reviews
+├ ○ /account/security
+├ ○ /account/wishlist
+├ ○ /admin/brands
+├ ○ /admin/categories
+├ ○ /admin/coupons
+├ ○ /admin/customers
+├ ƒ /admin/customers/[id]
+├ ○ /admin/dashboard
+├ ○ /admin/inventory
+├ ○ /admin/orders
+├ ƒ /admin/orders/[orderNumber]
+├ ○ /admin/products
+├ ƒ /admin/products/[id]/edit
+├ ○ /admin/products/new
+├ ○ /admin/reports
+├ ○ /admin/reviews
+├ ○ /admin/settings
+├ ○ /brands
+├ ○ /cart
+├ ƒ /categories
+├ ƒ /category/[slug]
+├ ○ /checkout
+├ ƒ /deals
+├ ○ /forgot-password
+├ ○ /login
+├ ƒ /order-confirmation/[orderNumber]
+├ ○ /payment/callback
+├ ƒ /product/[slug]
+├ ○ /register
+├ ○ /reset-password
+├ ○ /robots.txt
+├ ƒ /search
+├ ƒ /sitemap.xml
+├ ○ /verify-email
+└ ○ /wishlist
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
