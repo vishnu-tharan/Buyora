@@ -1,0 +1,162 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-background: hsl(var(--color-background));
+  --color-foreground: hsl(var(--color-foreground));
+  --color-card: hsl(var(--color-card));
+  --color-card-foreground: hsl(var(--color-card-foreground));
+  --color-popover: hsl(var(--color-popover));
+  --color-popover-foreground: hsl(var(--color-popover-foreground));
+  --color-primary: hsl(var(--color-primary));
+  --color-primary-foreground: hsl(var(--color-primary-foreground));
+  --color-secondary: hsl(var(--color-secondary));
+  --color-secondary-foreground: hsl(var(--color-secondary-foreground));
+  --color-muted: hsl(var(--color-muted));
+  --color-muted-foreground: hsl(var(--color-muted-foreground));
+  --color-accent: hsl(var(--color-accent));
+  --color-accent-foreground: hsl(var(--color-accent-foreground));
+  --color-destructive: hsl(var(--color-error));
+  --color-destructive-foreground: hsl(var(--color-error-foreground));
+  --color-border: hsl(var(--color-border));
+  --color-input: hsl(var(--color-input));
+  --color-ring: hsl(var(--color-ring));
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+@layer base {
+  :root {
+    /* Brand colors */
+    --color-primary: 224 71% 40%;
+    --color-primary-foreground: 0 0% 100%;
+    --color-primary-light: 224 71% 55%;
+    --color-primary-dark: 224 71% 28%;
+
+    --color-secondary: 262 52% 47%;
+    --color-secondary-foreground: 0 0% 100%;
+
+    --color-accent: 20 90% 55%;
+    --color-accent-foreground: 0 0% 100%;
+
+    /* Semantic colors */
+    --color-success: 142 72% 29%;
+    --color-success-foreground: 0 0% 100%;
+    --color-success-light: 142 69% 58%;
+
+    --color-warning: 38 92% 50%;
+    --color-warning-foreground: 0 0% 10%;
+
+    --color-error: 0 72% 51%;
+    --color-error-foreground: 0 0% 100%;
+
+    --color-info: 200 90% 45%;
+    --color-info-foreground: 0 0% 100%;
+
+    /* Neutral palette */
+    --color-background: 0 0% 99%;
+    --color-foreground: 220 20% 12%;
+    --color-muted: 220 15% 96%;
+    --color-muted-foreground: 220 10% 40%;
+    --color-border: 220 15% 90%;
+    --color-input: 220 15% 90%;
+    --color-ring: 224 71% 40%;
+
+    /* Card */
+    --color-card: 0 0% 100%;
+    --color-card-foreground: 220 20% 12%;
+    --color-popover: 0 0% 100%;
+    --color-popover-foreground: 220 20% 12%;
+
+    /* Typography scale */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+    --font-mono: ui-monospace, monospace;
+
+    /* Border radius */
+    --radius-sm: 0.25rem;
+    --radius: 0.5rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.25rem;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+
+    /* Z-index scale */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-overlay: 300;
+    --z-modal: 400;
+    --z-toast: 500;
+  }
+
+  /* Dark mode preparation — variables override only */
+  .dark {
+    --color-primary: 224 71% 60%;
+    --color-primary-foreground: 0 0% 10%;
+    --color-background: 220 20% 7%;
+    --color-foreground: 220 15% 95%;
+    --color-muted: 220 15% 14%;
+    --color-muted-foreground: 220 10% 60%;
+    --color-border: 220 15% 20%;
+    --color-input: 220 15% 20%;
+    --color-card: 220 20% 10%;
+    --color-card-foreground: 220 15% 95%;
+    --color-popover: 220 20% 10%;
+    --color-popover-foreground: 220 15% 95%;
+    --color-ring: 224 71% 60%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+
+  /* Focus visible styles */
+  :focus-visible {
+    @apply outline-ring outline-2 outline-offset-2;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
