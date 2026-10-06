@@ -34,5 +34,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Gracefully handle if backend is not available
   }
 
-  return [...baseRoutes, ...categoryRoutes];
+  const helpRoutes = ['contact', 'faq', 'shipping', 'returns', 'privacy', 'terms'].map((path) => ({
+    url: SITE_URL + '/' + path,
+    changeFrequency: 'monthly' as const,
+    priority: 0.3,
+  }));
+  return [...baseRoutes, ...categoryRoutes, ...helpRoutes];
 }

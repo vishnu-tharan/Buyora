@@ -13,7 +13,7 @@ export function generateProductStructuredData(product: Product) {
     '@type': 'Product',
     name: product.name,
     description: product.shortDescription ?? product.description,
-    image: product.images.map((img) => img.url),
+    image: product.images.map((img) => new URL(img.url, SITE_URL).toString()),
     sku: product.sku,
     url: `${SITE_URL}/product/${product.slug}`,
     brand: product.brand
