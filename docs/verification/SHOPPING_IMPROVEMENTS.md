@@ -36,11 +36,13 @@ V13 is an additive Flyway migration for the new data tables, tracking/video fiel
 | Frontend TypeScript and ESLint | Passed |
 | Frontend tests | 12 files, 70 tests passed |
 | Production Next.js build | Passed; 41 static pages generated, dynamic routes compiled |
-| Backend unit tests | 12 suites, 36 tests passed, including refund acceptance/timeout/duplicate safeguards and delayed payment callbacks |
+| Backend tests | 36 unit tests and 8 PostgreSQL integration tests passed; includes V13 schema, auth, refund safeguards and payment callbacks |
+| Docker build and startup | Both application images rebuilt; all five services healthy; V13 applied to the existing database |
+| Retained data | Existing database volume preserved; user, product, order and order-item counts unchanged |
 | Browser checks | Desktop/mobile storefront, variant stock/pricing, delivery quote, image zoom/navigation, comparison table, attribute filters, keyboard search, product editor, and settings |
 | Whitespace check | Passed |
 
-Browser checks used the isolated local fixture in `BuyoraFrontend/e2e/fixtures/catalog-api.mjs`. It uses sample catalog data and an artificial local user; it is **not** an authentication, database, payment, or email integration test. Screenshots show the new layout with fixture/placeholder imagery:
+The original design checks used the isolated local fixture in `BuyoraFrontend/e2e/fixtures/catalog-api.mjs`. It uses sample catalog data and an artificial local user; it is **not** an authentication, database, payment, or email integration test. Screenshots show the new layout with fixture/placeholder imagery:
 
 - [Desktop screenshot](storefront-desktop.jpg)
 - [Mobile screenshot](storefront-mobile.jpg)
@@ -48,7 +50,7 @@ Browser checks used the isolated local fixture in `BuyoraFrontend/e2e/fixtures/c
 
 ## Before launch
 
-1. Run the full backend `verify` suite with Docker/PostgreSQL/Redis available. V13 and the added integration tests could not be executed in this environment. The September Docker verification reports in this folder predate these changes.
+1. The full backend `verify` suite, Docker builds and V13 migration now pass. See [Docker update verification](DOCKER_UPDATE.md) for the October 6 results. The September runtime.json remains an older, separate report. Complete the remaining business-flow checks below before public release.
 2. Verify catalog editing and upload permissions, guest/account checkout, stock reservation, partial returns, refund accounting, and email retries against a real test database.
 3. Configure real business contact details and review the published delivery, return, privacy, and terms content. Initial return and delivery values are configurable defaults, not an independently verified business policy.
 4. Configure PayHere sandbox merchant/API credentials and callback connectivity. Test success, failure, delayed/duplicate callbacks, full/partial refunds, and unknown outcomes before enabling merchant operations. Late paid cancellations require an operator's provider/dashboard review.
@@ -59,3 +61,5 @@ Browser checks used the isolated local fixture in `BuyoraFrontend/e2e/fixtures/c
 ## Fixture preview
 
 For a repeatable local interface check, start `node e2e/fixtures/catalog-api.mjs` inside BuyoraFrontend, then run Next with both `INTERNAL_API_URL` and `NEXT_PUBLIC_API_BASE_URL` set to `http://127.0.0.1:8091/api/v1`. Open `http://127.0.0.1:3000`. Stop both processes when finished and remove those process overrides before connecting to the real backend. Do not use this fixture for deployed hosting.
+
+The rebuilt Docker storefront was also checked against the retained database: desktop catalog rendering, product detail, comparison and mobile navigation passed without browser runtime errors.

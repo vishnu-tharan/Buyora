@@ -85,6 +85,17 @@ ON CONFLICT DO NOTHING;
 
 Use /admin to create categories/products and adjust stock. New databases contain no catalog products by default. Product editing includes image uploads, variants, specifications and merchandising options. Configure delivery, contact and policy details in admin settings before accepting orders.
 
+## Updating the existing local stack
+
+The current workspace uses the Compose project `buyora-docker-check` and its existing PostgreSQL volume. Update that same project with:
+
+~~~powershell
+docker compose -p buyora-docker-check up -d --build --wait
+docker compose -p buyora-docker-check ps
+~~~
+
+Open http://localhost:3000. Use localhost consistently so browser requests and authentication cookies use the configured origin. The default commands below apply to a fresh `buyora` project; include `-p buyora-docker-check` when managing the existing workspace stack.
+
 ## Daily commands
 
 ~~~sh
@@ -143,4 +154,4 @@ This is a local stack. Before deploying, use HTTPS, Secure cookies, explicit pro
 
 ## Verification
 
-See docs/verification/SHOPPING_IMPROVEMENTS.md for the current checks and release requirements. The older runtime.json describes the September 28 Docker run; it does not verify the new V13 migration or shopping features. The updated full Docker stack and PayHere sandbox flow still require verification.
+Both updated application images and all five local services were verified on October 6, including V13 on the existing database and the full backend integration suite. See docs/verification/DOCKER_UPDATE.md and SHOPPING_IMPROVEMENTS.md for the checks and remaining release requirements. The older runtime.json describes the September Docker run. PayHere sandbox and the complete customer/admin business flows still require separate verification.
