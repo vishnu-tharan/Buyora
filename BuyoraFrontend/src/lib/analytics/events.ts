@@ -6,6 +6,7 @@ export type AnalyticsEvent =
   | { type: 'remove_from_cart'; productId: number; quantity: number }
   | { type: 'begin_checkout'; cartTotal: number; itemCount: number }
   | { type: 'purchase'; orderNumber: string; total: number; itemCount: number }
+  | { type: 'order_placed'; orderNumber: string; total: number; itemCount: number }
   | { type: 'add_to_wishlist'; productId: number }
   | { type: 'coupon_applied'; code: string; discount: number };
 
@@ -14,12 +15,28 @@ type AnalyticsProvider = {
 };
 
 const providers: AnalyticsProvider[] = [];
+const pending: AnalyticsEvent[] = [];
 
 export function registerAnalyticsProvider(provider: AnalyticsProvider) {
   providers.push(provider);
+  pending.splice(0).forEach((event) => {
+    try {
+      provider.track(event);
+    } catch {
+      /* Analytics must not interrupt shopping. */
+    }
+  });
+  return () => {
+    const index = providers.indexOf(provider);
+    if (index >= 0) providers.splice(index, 1);
+  };
 }
 
 export function trackEvent(event: AnalyticsEvent) {
+  if (!providers.length) {
+    if (pending.length < 30) pending.push(event);
+    return;
+  }
   if (process.env.NODE_ENV === 'development') {
     console.debug('[Analytics]', event);
   }

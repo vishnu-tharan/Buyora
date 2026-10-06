@@ -3,12 +3,14 @@
 import { useCartStore } from '@/stores/cart.store';
 import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export function FloatingCartButton() {
+  const pathname = usePathname();
   const { cart } = useCartStore();
   const itemCount = cart?.itemCount || 0;
 
-  if (itemCount === 0) return null;
+  if (itemCount === 0 || pathname.startsWith('/product/') || pathname === '/checkout') return null;
 
   return (
     <Link

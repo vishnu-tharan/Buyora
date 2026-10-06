@@ -1,6 +1,6 @@
 import type { ApiError } from '@/types';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8080/api/v1';
+const PUBLIC_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8080/api/v1';
 
 export class BuyoraApiError extends Error {
   public readonly status: number;
@@ -39,7 +39,11 @@ export interface RequestOptions extends RequestInit {
 function buildUrl(path: string, params?: RequestOptions['params']): string {
   if (!path.startsWith('/') || path.startsWith('//') || path.includes('\\'))
     throw new Error('Invalid API path');
-  const url = new URL(`${API_BASE.replace(/\/$/, '')}${path}`);
+  const apiBase =
+    typeof window === 'undefined'
+      ? (process.env.INTERNAL_API_URL ?? PUBLIC_API_BASE)
+      : PUBLIC_API_BASE;
+  const url = new URL(`${apiBase.replace(/\/$/, '')}${path}`);
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (value === undefined || value === null) return;

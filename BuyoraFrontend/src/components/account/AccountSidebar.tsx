@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useLogout } from '@/hooks/use-logout';
 import { useAuthStore } from '@/stores/auth.store';
-import { Heart, LogOut, MapPin, Package, Shield, Star, User } from 'lucide-react';
+import { BellRing, Heart, LogOut, MapPin, Package, Shield, Star, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,6 +11,7 @@ const navItems = [
   { href: '/account/wishlist', label: 'Wishlist', icon: Heart },
   { href: '/account/addresses', label: 'Addresses', icon: MapPin },
   { href: '/account/reviews', label: 'My Reviews', icon: Star },
+  { href: '/account/alerts', label: 'Product alerts', icon: BellRing },
   { href: '/account/security', label: 'Security', icon: Shield },
 ];
 

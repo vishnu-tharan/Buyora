@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 import { CategoryGrid } from '@/components/home/CategoryGrid';
-import { FeaturedProducts } from '@/components/home/FeaturedProducts';
+import { HomeRecentlyViewed } from '@/components/home/HomeRecentlyViewed';
 import { HeroSection } from '@/components/home/HeroSection';
 import { PromoBanner } from '@/components/home/PromoBanner';
 import { TrustBadges } from '@/components/home/TrustBadges';
@@ -56,15 +56,13 @@ export default function HomePage() {
         <CategoryGrid />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
-        <FeaturedProducts />
+        <BestSellers />
       </Suspense>
       <PromoBanner />
       <Suspense fallback={<SectionSkeleton />}>
         <NewArrivals />
       </Suspense>
-      <Suspense fallback={<SectionSkeleton />}>
-        <BestSellers />
-      </Suspense>
+      <HomeRecentlyViewed />
     </>
   );
 }

@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
 import { cn } from '@/lib/utils';
 import {
+  Activity,
+  RotateCcw,
   BarChart3,
   Boxes,
   Briefcase,
@@ -30,6 +32,8 @@ const navItems = [
   { name: 'Customers', href: '/admin/customers', icon: Users },
   { name: 'Reviews', href: '/admin/reviews', icon: Star },
   { name: 'Coupons', href: '/admin/coupons', icon: Ticket },
+  { name: 'Returns & refunds', href: '/admin/returns', icon: RotateCcw },
+  { name: 'Operations', href: '/admin/operations', icon: Activity },
   { name: 'Reports', href: '/admin/reports', icon: BarChart3 },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];

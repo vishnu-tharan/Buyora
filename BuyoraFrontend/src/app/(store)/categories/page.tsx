@@ -1,3 +1,4 @@
+import { CategoryIcon } from '@/components/ui/CategoryIcon';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { categoriesService } from '@/services/categories.service';
@@ -8,7 +9,7 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'All Categories | Buyora',
+  title: 'All Categories',
   description: 'Browse all product categories on Buyora',
 };
 
@@ -48,7 +49,9 @@ export default async function CategoriesPage() {
                     className="object-cover transition-transform group-hover:scale-105"
                   />
                 ) : (
-                  <span className="text-4xl">📁</span>
+                  <span className="bg-primary/5 text-primary rounded-2xl p-5">
+                    <CategoryIcon name={category.name} className="size-10" />
+                  </span>
                 )}
               </div>
               <CardContent className="p-4 text-center">

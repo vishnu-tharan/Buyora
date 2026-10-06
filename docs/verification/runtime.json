@@ -1,0 +1,20 @@
+{
+  "testedAt": "2026-09-28T19:36:53.389Z",
+  "project": "buyora-docker-check",
+  "checks": [
+    "Frontend and backend health",
+    "Registration and verification email delivery",
+    "Login, refresh, and authenticated profile",
+    "CSRF, private routes, admin permissions, and restricted CORS",
+    "Admin category/product creation, PostgreSQL tags, inventory, and public catalog",
+    "Repeated category and brand requests survive Redis cache reads",
+    "Server rendering uses the internal API and displays real catalog data",
+    "Cart, checkout, COD order, duplicate-order protection, and order ownership",
+    "Admin changes appear in the public catalog",
+    "Browser login, cookies, customer orders, product cart action, checkout, admin products, and live storefront",
+    "Logout clears authentication"
+  ],
+  "productId": 3,
+  "productName": "Docker product 1d2a217cd4 updated",
+  "orderNumber": "ORD-260928193648-7984"
+}

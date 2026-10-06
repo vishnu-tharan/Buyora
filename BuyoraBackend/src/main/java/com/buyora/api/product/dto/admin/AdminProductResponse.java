@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record AdminProductResponse(
+    Long id,
     UUID publicId,
     String name,
     String slug,
@@ -29,5 +30,4 @@ public record AdminProductResponse(
     String shippingInfo,
     String returnInfo,
     List<ProductImageResponse> images,
-    List<AdminVariantResponse> variants
-) {}
+    List<AdminVariantResponse> variants) {}

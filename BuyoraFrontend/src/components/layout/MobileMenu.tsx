@@ -4,7 +4,16 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { useLogout } from '@/hooks/use-logout';
 import { useAuthStore } from '@/stores/auth.store';
 import { useUIStore } from '@/stores/ui.store';
-import { ChevronRight, Heart, LogOut, Package, Settings, User } from 'lucide-react';
+import {
+  Columns3,
+  Headphones,
+  ChevronRight,
+  Heart,
+  LogOut,
+  Package,
+  Settings,
+  User,
+} from 'lucide-react';
 import Link from 'next/link';
 
 export function MobileMenu() {
@@ -56,6 +65,24 @@ export function MobileMenu() {
             )}
           </div>
 
+          <div className="grid grid-cols-2 gap-2 p-4 pb-0">
+            <Link
+              href="/compare"
+              onClick={closeMobileMenu}
+              className="flex items-center gap-2 rounded-xl border p-3 text-xs"
+            >
+              <Columns3 size={17} aria-hidden="true" />
+              Compare
+            </Link>
+            <Link
+              href="/contact"
+              onClick={closeMobileMenu}
+              className="flex items-center gap-2 rounded-xl border p-3 text-xs"
+            >
+              <Headphones size={17} aria-hidden="true" />
+              Get help
+            </Link>
+          </div>
           {/* Navigation Links */}
           <nav className="flex flex-col gap-1 p-4">
             <Link

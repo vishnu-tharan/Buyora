@@ -1,4 +1,5 @@
 'use client';
+import { TrackingEditor } from '@/components/admin/TrackingEditor';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -56,6 +57,12 @@ export default function AdminOrderDetailPage({
         description={`Placed on ${formatDate(order.createdAt)}`}
       />
 
+      <TrackingEditor
+        key={order.trackingNumber}
+        orderNumber={orderNumber}
+        number={order.trackingNumber}
+        url={order.trackingUrl}
+      />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="space-y-6 md:col-span-2">
           <Card>

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import type { ProductImage, ProductVariant } from '@/types';
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 interface ImageGalleryProps {
   images: ProductImage[];
@@ -15,6 +15,7 @@ interface ImageGalleryProps {
 }
 
 export function ImageGallery({ images, productName, selectedVariant }: ImageGalleryProps) {
+  const touch = useRef<{ x: number; y: number } | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -56,12 +57,27 @@ export function ImageGallery({ images, productName, selectedVariant }: ImageGall
   return (
     <div className="flex flex-col gap-4 md:flex-row-reverse">
       {/* Main Image */}
-      <div className="bg-muted/20 group relative aspect-square flex-1 overflow-hidden rounded-xl">
+      <div
+        className="bg-muted/20 group relative aspect-square flex-1 overflow-hidden rounded-2xl"
+        onTouchStart={(e) => {
+          touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }}
+        onTouchEnd={(e) => {
+          if (!touch.current) return;
+          const dx = e.changedTouches[0].clientX - touch.current.x;
+          const dy = e.changedTouches[0].clientY - touch.current.y;
+          if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) handleNext();
+            else handlePrevious();
+          }
+          touch.current = null;
+        }}
+      >
         <Image
           src={currentImage.url}
           alt={currentImage.altText || productName}
           fill
-          priority
+          preload
           className="object-contain p-4"
           sizes="(max-width: 768px) 100vw, 60vw"
         />
@@ -83,7 +99,7 @@ export function ImageGallery({ images, productName, selectedVariant }: ImageGall
         <Button
           variant="secondary"
           size="icon"
-          className="absolute top-4 right-4 hidden opacity-0 transition-opacity group-hover:opacity-100 md:flex"
+          className="absolute top-4 right-4 flex opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
           onClick={() => setIsFullscreen(true)}
           aria-label="View full size"
         >
@@ -97,6 +113,8 @@ export function ImageGallery({ images, productName, selectedVariant }: ImageGall
           {displayImages.map((image, index) => (
             <button
               key={image.id}
+              aria-label={'View image ' + (index + 1) + ' of ' + displayImages.length}
+              aria-pressed={index === currentIndex}
               onClick={() => setCurrentIndex(index)}
               className={cn(
                 'relative aspect-square w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all md:w-full',
@@ -127,7 +145,6 @@ export function ImageGallery({ images, productName, selectedVariant }: ImageGall
               alt={currentImage.altText || productName}
               fill
               className="object-contain"
-              quality={100}
             />
 
             {displayImages.length > 1 && (
@@ -136,6 +153,7 @@ export function ImageGallery({ images, productName, selectedVariant }: ImageGall
                   variant="outline"
                   size="icon"
                   className="bg-background/50 hover:bg-background absolute top-1/2 left-4 -translate-y-1/2 rounded-full"
+                  aria-label="Previous image"
                   onClick={handlePrevious}
                 >
                   <ChevronLeft className="h-6 w-6" />
@@ -144,6 +162,7 @@ export function ImageGallery({ images, productName, selectedVariant }: ImageGall
                   variant="outline"
                   size="icon"
                   className="bg-background/50 hover:bg-background absolute top-1/2 right-4 -translate-y-1/2 rounded-full"
+                  aria-label="Next image"
                   onClick={handleNext}
                 >
                   <ChevronRight className="h-6 w-6" />
@@ -154,14 +173,17 @@ export function ImageGallery({ images, productName, selectedVariant }: ImageGall
               </>
             )}
           </div>
-          <DialogClose>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="bg-background/50 hover:bg-background absolute top-4 right-4 rounded-full"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+          <DialogClose
+            render={
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Close image view"
+                className="bg-background/50 hover:bg-background absolute top-4 right-4 rounded-full"
+              />
+            }
+          >
+            <X className="h-5 w-5" />
           </DialogClose>
         </DialogContent>
       </Dialog>

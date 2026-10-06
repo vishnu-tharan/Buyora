@@ -1,6 +1,7 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
 import type { Product } from '@/types';
 import { RotateCcw, Truck } from 'lucide-react';
 
@@ -77,8 +78,11 @@ export function ProductTabs({ product }: ProductTabsProps) {
                 <div className="whitespace-pre-line">{product.shippingInfo}</div>
               ) : (
                 <p>
-                  Standard shipping takes 3-5 business days. Free shipping on orders over LKR 5,000.
-                  Express shipping is available at checkout for an additional fee.
+                  Select your district above for current delivery methods and estimates. The final
+                  charge is shown at checkout.{' '}
+                  <Link href="/shipping" className="text-primary underline">
+                    Delivery details
+                  </Link>
                 </p>
               )}
             </div>
@@ -96,8 +100,11 @@ export function ProductTabs({ product }: ProductTabsProps) {
                 <div className="whitespace-pre-line">{product.returnInfo}</div>
               ) : (
                 <p>
-                  We accept returns within 30 days of delivery. Items must be in their original
-                  condition with tags attached. Return shipping is free.
+                  Choose eligible items from your delivered order to request a return. Approval and
+                  refund progress are shown separately.{' '}
+                  <Link href="/returns" className="text-primary underline">
+                    Read the current returns policy
+                  </Link>
                 </p>
               )}
             </div>

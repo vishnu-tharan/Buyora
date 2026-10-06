@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 import { formatCurrency } from '@/lib/formatting/currency';
+import { storeService } from '@/services/store.service';
 import { checkoutService } from '@/services/checkout.service';
 import { useCheckoutStore } from '@/stores';
 import { useQuery } from '@tanstack/react-query';
@@ -19,6 +20,12 @@ export function ShippingMethodStep() {
     queryKey: ['checkout-preview'],
     queryFn: checkoutService.preview,
     retry: false,
+  });
+  const district = state.shippingAddress?.district ?? '';
+  const delivery = useQuery({
+    queryKey: ['delivery', district],
+    queryFn: () => storeService.delivery(district),
+    enabled: !!district,
   });
   const methods = query.data?.shippingMethods ?? [];
   const isLoading = query.isPending;
@@ -36,6 +43,12 @@ export function ShippingMethodStep() {
     <div className="space-y-6">
       <h2 className="mb-4 text-lg font-semibold text-gray-900">Shipping Method</h2>
 
+      {delivery.data && (
+        <p className="bg-primary/5 text-primary rounded-xl p-4 text-sm">
+          Delivery to {district}: estimated {delivery.data.minDays}–{delivery.data.maxDays} business
+          days.
+        </p>
+      )}
       {!isLoading && methods.length === 0 && (
         <p>No shipping methods are available for this order.</p>
       )}

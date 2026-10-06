@@ -2,6 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ProductFilter } from '@/types';
 import { X } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface ActiveFilterChipsProps {
   filters: ProductFilter;
@@ -18,6 +19,9 @@ export function ActiveFilterChips({
   clearFilters,
   hasActiveFilters,
 }: ActiveFilterChipsProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   if (!hasActiveFilters) return null;
 
   return (
@@ -41,6 +45,27 @@ export function ActiveFilterChips({
         </Badge>
       ))}
 
+      {Object.entries(filters.attributes ?? {}).flatMap(([attribute, values]) =>
+        values.map((value) => (
+          <Badge
+            key={attribute + value}
+            variant="secondary"
+            className="gap-1 rounded-full px-3 py-1"
+          >
+            <span className="capitalize">
+              {attribute}: {value}
+            </span>
+            <button
+              aria-label={'Remove ' + value + ' filter'}
+              onClick={() => toggleArrayFilter('attr_' + attribute, value)}
+              className="hover:text-destructive rounded p-1"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </Badge>
+        ))
+      )}
+
       {(filters.minPrice !== undefined || filters.maxPrice !== undefined) && (
         <Badge
           variant="secondary"
@@ -48,9 +73,13 @@ export function ActiveFilterChips({
         >
           Price: {filters.minPrice || 0} - {filters.maxPrice || 'Any'}
           <button
+            aria-label="Remove price filter"
             onClick={() => {
-              setFilter('minPrice', undefined);
-              setFilter('maxPrice', undefined);
+              const params = new URLSearchParams(searchParams.toString());
+              params.delete('minPrice');
+              params.delete('maxPrice');
+              params.delete('page');
+              router.push(pathname + '?' + params.toString(), { scroll: false });
             }}
             className="hover:text-destructive ml-1 focus:outline-none"
           >
@@ -66,6 +95,7 @@ export function ActiveFilterChips({
         >
           Rating: {filters.minRating}★ & above
           <button
+            aria-label="Remove rating filter"
             onClick={() => setFilter('rating', undefined)}
             className="hover:text-destructive ml-1 focus:outline-none"
           >
@@ -81,6 +111,7 @@ export function ActiveFilterChips({
         >
           In Stock
           <button
+            aria-label="Remove availability filter"
             onClick={() => setFilter('inStock', undefined)}
             className="hover:text-destructive ml-1 focus:outline-none"
           >
@@ -96,6 +127,7 @@ export function ActiveFilterChips({
         >
           On Sale
           <button
+            aria-label="Remove sale filter"
             onClick={() => setFilter('hasDiscount', undefined)}
             className="hover:text-destructive ml-1 focus:outline-none"
           >

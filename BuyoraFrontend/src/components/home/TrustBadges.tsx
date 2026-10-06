@@ -1,45 +1,54 @@
-import { HeadphonesIcon, RefreshCw, ShieldCheck, Truck } from 'lucide-react';
-
+import { CreditCard, Headphones, PackageCheck, RotateCcw } from 'lucide-react';
+import Link from 'next/link';
 export function TrustBadges() {
   const badges = [
     {
-      icon: <Truck className="text-primary h-8 w-8" />,
-      title: 'Free Shipping',
-      description: 'On orders over LKR 5,000',
+      icon: PackageCheck,
+      title: 'Delivery, made clear',
+      description: 'See options before checkout',
+      href: '/shipping',
     },
     {
-      icon: <ShieldCheck className="text-primary h-8 w-8" />,
-      title: 'Secure Payments',
-      description: '100% safe checkout',
+      icon: CreditCard,
+      title: 'Your way to pay',
+      description: 'Available methods at checkout',
+      href: '/faq',
     },
     {
-      icon: <RefreshCw className="text-primary h-8 w-8" />,
-      title: 'Easy Returns',
-      description: '30-day return policy',
+      icon: RotateCcw,
+      title: 'Help with returns',
+      description: 'A clear process, step by step',
+      href: '/returns',
     },
     {
-      icon: <HeadphonesIcon className="text-primary h-8 w-8" />,
-      title: '24/7 Support',
-      description: 'Always here to help',
+      icon: Headphones,
+      title: 'Here to help',
+      description: 'Get in touch with our team',
+      href: '/contact',
     },
   ];
-
   return (
-    <section className="container mx-auto max-w-screen-xl border-b px-4 py-12">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-        {badges.map((badge, i) => (
-          <div
-            key={i}
-            className="bg-background flex items-center gap-4 rounded-xl border p-4 shadow-sm transition-transform hover:-translate-y-1"
-          >
-            <div className="bg-primary/10 flex-shrink-0 rounded-full p-3">{badge.icon}</div>
-            <div>
-              <h4 className="font-bold">{badge.title}</h4>
-              <p className="text-muted-foreground text-sm">{badge.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    <section
+      aria-label="Shopping with Buyora"
+      className="container mx-auto grid max-w-screen-xl grid-cols-2 gap-4 px-4 py-6 md:grid-cols-4 md:py-8"
+    >
+      {badges.map(({ icon: Icon, title, description, href }) => (
+        <Link
+          key={title}
+          href={href}
+          className="group hover:bg-muted flex items-start gap-3 rounded-xl p-2 transition"
+        >
+          <span className="border-primary/10 bg-primary/5 text-primary flex size-10 shrink-0 items-center justify-center rounded-xl border">
+            <Icon size={21} strokeWidth={1.7} aria-hidden="true" />
+          </span>
+          <span>
+            <span className="block text-xs font-semibold sm:text-sm">{title}</span>
+            <span className="text-muted-foreground mt-1 block text-[11px] leading-5 sm:text-xs">
+              {description}
+            </span>
+          </span>
+        </Link>
+      ))}
     </section>
   );
 }

@@ -9,7 +9,7 @@ interface PageProps {
 }
 
 export const metadata: Metadata = {
-  title: "Today's Deals | Buyora",
+  title: "Today's Deals",
   description: 'Shop the best deals and discounts on Buyora',
 };
 

@@ -2,10 +2,21 @@ import { api } from '@/lib/api/client';
 import { ENDPOINTS } from '@/lib/api/endpoints';
 import type { PaginatedResponse, Product, ProductFilter, ProductSummary } from '@/types';
 
+function paramsFor(filters?: ProductFilter) {
+  const { attributes, ...rest } = filters ?? {};
+  return {
+    ...rest,
+    attribute: attributes
+      ? Object.entries(attributes).flatMap(([key, values]) =>
+          values.map((value) => key + ':' + value)
+        )
+      : undefined,
+  };
+}
 export const productsService = {
   getProducts: (filters?: ProductFilter) =>
     api.get<PaginatedResponse<ProductSummary>>(ENDPOINTS.products.list, {
-      params: filters as Record<string, string | number | boolean | string[]>,
+      params: paramsFor(filters),
     }),
 
   getProduct: (slug: string) => api.get<Product>(ENDPOINTS.products.detail(slug)),
@@ -20,7 +31,7 @@ export const productsService = {
 
   search: (params: ProductFilter) =>
     api.get<PaginatedResponse<ProductSummary>>(ENDPOINTS.products.search, {
-      params: params as Record<string, string | number | boolean | string[]>,
+      params: paramsFor(params),
     }),
 
   getSuggestions: (q: string) =>

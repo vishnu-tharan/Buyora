@@ -32,10 +32,19 @@ export function FilterSidebar({
   toggleArrayFilter,
   clearFilters,
   hasActiveFilters,
+  category,
 }: FilterSidebarProps) {
   const { data: brandPage } = useQuery({
     queryKey: ['brands'],
     queryFn: () => api.get<PaginatedResponse<Brand>>('/brands', { params: { size: 100 } }),
+  });
+  const facets = useQuery({
+    queryKey: ['facets', category?.slug ?? filters.categorySlug],
+    queryFn: () =>
+      api.get<{ slug: string; name: string; values: string[] }[]>('/products/facets', {
+        params: { categorySlug: category?.slug ?? filters.categorySlug },
+      }),
+    staleTime: 60000,
   });
   const brands = brandPage?.content ?? [];
   const priceRange = [filters.minPrice ?? 0, filters.maxPrice ?? 500000];
@@ -93,6 +102,23 @@ export function FilterSidebar({
           </AccordionContent>
         </AccordionItem>
 
+        {facets.data?.map((facet) => (
+          <AccordionItem key={facet.slug} value={facet.slug}>
+            <AccordionTrigger>{facet.name}</AccordionTrigger>
+            <AccordionContent className="space-y-3 p-1">
+              {facet.values.map((value) => (
+                <label key={value} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={filters.attributes?.[facet.slug]?.includes(value) ?? false}
+                    onChange={() => toggleArrayFilter('attr_' + facet.slug, value)}
+                  />
+                  {value}
+                </label>
+              ))}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
         <AccordionItem value="brands">
           <AccordionTrigger>Brands</AccordionTrigger>
           <AccordionContent className="space-y-4 pt-1">

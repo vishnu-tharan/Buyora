@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: (process.env.IMAGE_HOSTS ?? 'localhost:9000')
       .split(',')

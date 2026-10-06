@@ -1,9 +1,10 @@
 package com.buyora.api.order.entity;
 
 public enum PaymentStatus {
-    PENDING,
-    AUTHORIZED,
-    PAID,
-    FAILED,
-    REFUNDED
+  PENDING,
+  AUTHORIZED,
+  PAID,
+  FAILED,
+  REFUNDED,
+  PARTIALLY_REFUNDED
 }

@@ -11,9 +11,22 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useCartQuery } from '@/features/cart/use-cart-query';
 import { useCheckoutStore } from '@/stores';
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
+import { trackEvent } from '@/lib/analytics/events';
 export default function CheckoutPage() {
   const step = useCheckoutStore((store) => store.state.step);
   const cart = useCartQuery();
+  const tracked = useRef(false);
+  useEffect(() => {
+    if (cart.data?.items.length && !tracked.current) {
+      tracked.current = true;
+      trackEvent({
+        type: 'begin_checkout',
+        cartTotal: cart.data.summary.total,
+        itemCount: cart.data.itemCount,
+      });
+    }
+  }, [cart.data]);
   if (step !== 5 && cart.isPending)
     return (
       <div role="status" className="p-12">

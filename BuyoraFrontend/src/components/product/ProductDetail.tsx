@@ -5,7 +5,13 @@ import { useMutation } from '@tanstack/react-query';
 import { AlertCircle, CheckCircle2, Heart, XCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { trackEvent } from '@/lib/analytics/events';
+import { ProductVideo } from './ProductVideo';
+import { CompleteTheSet } from './CompleteTheSet';
+import { CompareButton } from './CompareButton';
+import { ShareProduct } from './ShareProduct';
+import { ProductAlerts } from './ProductAlerts';
 
 import { useToggleWishlist, useWishlistQuery } from '@/features/wishlist/use-wishlist-query';
 import { useAuth } from '@/hooks/use-auth';
@@ -33,6 +39,18 @@ interface ProductDetailProps {
 }
 
 export function ProductDetail({ product }: ProductDetailProps) {
+  const viewed = useRef<number | null>(null);
+  useEffect(() => {
+    if (viewed.current !== product.id) {
+      viewed.current = product.id;
+      trackEvent({
+        type: 'product_view',
+        productId: product.id,
+        productName: product.name,
+        price: product.basePrice,
+      });
+    }
+  }, [product.id, product.name, product.basePrice]);
   const router = useRouter();
   const { toast } = useToast();
   const { user } = useAuth();
@@ -89,6 +107,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
       });
     },
     onSuccess: (cart) => {
+      if (selectedVariant)
+        trackEvent({
+          type: 'add_to_cart',
+          productId: product.id,
+          variantId: selectedVariant.id,
+          quantity,
+          price: currentPrice,
+        });
       queryClient.setQueryData(['cart'], cart);
       useCartStore.getState().setCart(cart);
       openCart();
@@ -126,7 +152,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto max-w-screen-xl px-4 pt-8 pb-24 md:pb-8">
       <Breadcrumb
         className="mb-6"
         items={[
@@ -141,6 +167,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         {/* Left Column - Images */}
         <div className="min-w-0">
           <ImageGallery
+            key={selectedVariant?.id ?? 'all'}
             images={product.images}
             productName={product.name}
             selectedVariant={selectedVariant}
@@ -282,11 +309,41 @@ export function ProductDetail({ product }: ProductDetailProps) {
             Buy Now
           </Button>
 
+          <div className="mb-3 flex flex-wrap items-center gap-4">
+            <CompareButton id={product.id} />
+            <ShareProduct name={product.name} slug={product.slug} />
+          </div>
+          <ProductAlerts variantId={selectedVariant?.id} inStock={isInStock} slug={product.slug} />
           <ShippingInfo />
         </div>
       </div>
 
+      <ProductVideo url={product.videoUrl} name={product.name} poster={product.images[0]?.url} />
       <ProductTabs product={product} />
+      <CompleteTheSet slug={product.slug} currentVariant={selectedVariant} />
+      <div className="bg-card/95 fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
+        <div className="min-w-0 flex-1">
+          <p className="text-muted-foreground truncate text-xs">{product.name}</p>
+          <p className="text-sm font-semibold">
+            {new Intl.NumberFormat('en-LK', { style: 'currency', currency: 'LKR' }).format(
+              currentPrice
+            )}
+          </p>
+        </div>
+        <Button
+          onClick={handleAddToCart}
+          disabled={!canAddToCart || addToCartMutation.isPending}
+          className="h-11 rounded-full px-6"
+        >
+          {addToCartMutation.isPending
+            ? 'Adding…'
+            : !selectedVariant
+              ? 'Choose options'
+              : isInStock
+                ? 'Add to Cart'
+                : 'Out of Stock'}
+        </Button>
+      </div>
     </div>
   );
 }

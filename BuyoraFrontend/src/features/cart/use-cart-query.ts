@@ -1,3 +1,4 @@
+import { trackEvent } from '@/lib/analytics/events';
 import { cartService } from '@/services/cart.service';
 import { useCartStore } from '@/stores/cart.store';
 import type { AddToCartRequest, UpdateCartItemRequest } from '@/types/cart';
@@ -21,7 +22,14 @@ export function useAddToCart() {
 
   return useMutation({
     mutationFn: (data: AddToCartRequest) => cartService.addItem(data),
-    onSuccess: (cart) => {
+    onSuccess: (cart, request) => {
+      trackEvent({
+        type: 'add_to_cart',
+        productId: request.productId,
+        variantId: request.variantId,
+        quantity: request.quantity,
+        price: cart.items.find((i) => i.variant.id === request.variantId)?.unitPrice ?? 0,
+      });
       queryClient.setQueryData(['cart'], cart);
       useCartStore.getState().setCart(cart);
       openCart();
@@ -47,7 +55,14 @@ export function useRemoveCartItem() {
 
   return useMutation({
     mutationFn: (itemId: number) => cartService.removeItem(itemId),
-    onSuccess: (cart) => {
+    onSuccess: (cart, itemId) => {
+      const item = useCartStore.getState().cart?.items.find((i) => i.id === itemId);
+      if (item)
+        trackEvent({
+          type: 'remove_from_cart',
+          productId: item.product.id,
+          quantity: item.quantity,
+        });
       queryClient.setQueryData(['cart'], cart);
       useCartStore.getState().setCart(cart);
     },
@@ -59,7 +74,8 @@ export function useApplyCoupon() {
 
   return useMutation({
     mutationFn: (code: string) => cartService.applyCoupon(code),
-    onSuccess: (cart) => {
+    onSuccess: (cart, code) => {
+      trackEvent({ type: 'coupon_applied', code, discount: cart.summary.discountAmount });
       queryClient.setQueryData(['cart'], cart);
       useCartStore.getState().setCart(cart);
     },

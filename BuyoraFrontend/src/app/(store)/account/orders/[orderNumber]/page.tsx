@@ -1,6 +1,8 @@
 'use client';
 import { getErrorDetails } from '@/lib/api/errors';
 
+import { TrackingLink } from '@/components/account/TrackingLink';
+import { ReturnProgress } from '@/components/account/ReturnProgress';
 import { CancelOrderDialog } from '@/components/account/CancelOrderDialog';
 import { OrderTimeline } from '@/components/account/OrderTimeline';
 import { ReturnRequestDialog } from '@/components/account/ReturnRequestDialog';
@@ -37,6 +39,11 @@ export default function OrderDetailPage() {
     queryFn: () => ordersService.getOrder(orderNumber),
   });
 
+  const returnsQuery = useQuery({
+    queryKey: ['returns', orderNumber],
+    queryFn: () => ordersService.getReturns(orderNumber),
+    retry: false,
+  });
   const handleCancel = async (reason: string) => {
     setIsActionLoading(true);
     try {
@@ -62,6 +69,7 @@ export default function OrderDetailPage() {
       toast.add({ title: 'Return request submitted successfully' });
       setIsReturnDialogOpen(false);
       refetch();
+      await returnsQuery.refetch();
     } catch (caught) {
       const err = getErrorDetails(caught);
       toast.add({
@@ -168,6 +176,8 @@ export default function OrderDetailPage() {
             )}
           </div>
 
+          <TrackingLink number={order.trackingNumber} url={order.trackingUrl} />
+          <ReturnProgress orderNumber={orderNumber} />
           {/* Items */}
           <div className="overflow-hidden rounded-xl border border-gray-100 bg-white">
             <h2 className="flex items-center gap-2 border-b border-gray-100 p-6 text-lg font-semibold">
@@ -310,7 +320,10 @@ export default function OrderDetailPage() {
       <ReturnRequestDialog
         open={isReturnDialogOpen}
         onOpenChange={setIsReturnDialogOpen}
-        items={order.items}
+        items={order.items.filter(
+          (item) =>
+            !returnsQuery.data?.some((r) => r.status !== 'REJECTED' && r.itemIds.includes(item.id))
+        )}
         onSubmit={handleReturn}
         isLoading={isActionLoading}
       />

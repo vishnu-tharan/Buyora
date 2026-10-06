@@ -8,6 +8,9 @@ import { ordersService } from '@/services/orders.service';
 import { useQuery } from '@tanstack/react-query';
 import { AlertCircle, CheckCircle2, ChevronRight, Package } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics/events';
+import { TrackingLink } from '@/components/account/TrackingLink';
 import { useParams } from 'next/navigation';
 
 export default function OrderConfirmationPage() {
@@ -23,6 +26,20 @@ export default function OrderConfirmationPage() {
     queryFn: () => ordersService.getOrder(orderNumber),
   });
 
+  useEffect(() => {
+    if (order?.paymentStatus !== 'PAID') return;
+    try {
+      const key = 'buyora-purchase:' + order.orderNumber;
+      if (sessionStorage.getItem(key)) return;
+      trackEvent({
+        type: 'purchase',
+        orderNumber: order.orderNumber,
+        total: order.total,
+        itemCount: order.items.length,
+      });
+      sessionStorage.setItem(key, 'true');
+    } catch {}
+  }, [order]);
   if (isLoading) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center space-y-4">
@@ -60,6 +77,7 @@ export default function OrderConfirmationPage() {
         </p>
       </div>
 
+      <TrackingLink number={order.trackingNumber} url={order.trackingUrl} />
       <div className="mb-8 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 bg-gray-50 px-6 py-4">
           <h2 className="text-lg font-semibold text-gray-900">Order Details</h2>

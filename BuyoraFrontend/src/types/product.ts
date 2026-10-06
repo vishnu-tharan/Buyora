@@ -87,12 +87,14 @@ export interface Product {
   seoDescription?: string;
   specifications?: Record<string, string>;
   shippingInfo?: string;
+  videoUrl?: string;
   returnInfo?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface ProductSummary {
+  updatedAt?: string;
   id: number;
   name: string;
   slug: string;
@@ -104,7 +106,10 @@ export interface ProductSummary {
   averageRating?: number;
   reviewCount?: number;
   isInWishlist?: boolean;
-  variants: Pick<ProductVariant, 'id' | 'sku' | 'price' | 'availableQuantity' | 'attributes'>[];
+  variants: Pick<
+    ProductVariant,
+    'id' | 'sku' | 'price' | 'compareAtPrice' | 'availableQuantity' | 'attributes'
+  >[];
   status: ProductStatus;
 }
 
