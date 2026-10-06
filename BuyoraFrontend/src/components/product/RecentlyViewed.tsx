@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { useRecentlyViewed } from '@/hooks/use-recently-viewed';
 import type { Product } from '@/types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useQueries } from '@tanstack/react-query';
+import { api } from '@/lib/api/client';
+import type { ProductSummary } from '@/types';
 import { useEffect, useRef } from 'react';
 
 interface RecentlyViewedProps {
@@ -27,7 +30,18 @@ export function RecentlyViewed({ currentProduct }: RecentlyViewedProps) {
     });
   }, [currentProduct, addItem]);
 
-  const displayItems = items.filter((item) => item.id !== currentProduct.id);
+  const recentQueries = useQueries({
+    queries: items
+      .filter((item) => item.id !== currentProduct.id)
+      .slice(0, 8)
+      .map((item) => ({
+        queryKey: ['recent-product', item.id],
+        queryFn: () => api.get<ProductSummary>('/products/by-id/' + item.id),
+        retry: false,
+        staleTime: 60000,
+      })),
+  });
+  const displayItems = recentQueries.flatMap((q) => (q.data ? [q.data] : []));
 
   if (displayItems.length === 0) return null;
 
@@ -72,13 +86,7 @@ export function RecentlyViewed({ currentProduct }: RecentlyViewedProps) {
       >
         {displayItems.map((product) => (
           <div key={product.id} className="w-[280px] shrink-0 snap-start md:w-auto">
-            <ProductCard
-              product={{
-                ...product,
-                status: 'ACTIVE',
-                variants: [],
-              }}
-            />
+            <ProductCard product={product} />
           </div>
         ))}
       </div>
