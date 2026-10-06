@@ -40,7 +40,7 @@ V13 is an additive Flyway migration for the new data tables, tracking/video fiel
 | Browser checks | Desktop/mobile storefront, variant stock/pricing, delivery quote, image zoom/navigation, comparison table, attribute filters, keyboard search, product editor, and settings |
 | Whitespace check | Passed |
 
-Browser checks used the isolated local fixture in `BuyoraFrontend/e2e/fixtures/catalog-api.cjs`. It uses sample catalog data and an artificial local user; it is **not** an authentication, database, payment, or email integration test. Screenshots show the new layout with fixture/placeholder imagery:
+Browser checks used the isolated local fixture in `BuyoraFrontend/e2e/fixtures/catalog-api.mjs`. It uses sample catalog data and an artificial local user; it is **not** an authentication, database, payment, or email integration test. Screenshots show the new layout with fixture/placeholder imagery:
 
 - [Desktop screenshot](storefront-desktop.jpg)
 - [Mobile screenshot](storefront-mobile.jpg)
@@ -58,4 +58,4 @@ Browser checks used the isolated local fixture in `BuyoraFrontend/e2e/fixtures/c
 
 ## Fixture preview
 
-For a repeatable local interface check, start `node e2e/fixtures/catalog-api.cjs` inside BuyoraFrontend, then run Next with both `INTERNAL_API_URL` and `NEXT_PUBLIC_API_BASE_URL` set to `http://127.0.0.1:8091/api/v1`. Open `http://127.0.0.1:3000`. Stop both processes when finished and remove those process overrides before connecting to the real backend. Do not use this fixture for deployed hosting.
+For a repeatable local interface check, start `node e2e/fixtures/catalog-api.mjs` inside BuyoraFrontend, then run Next with both `INTERNAL_API_URL` and `NEXT_PUBLIC_API_BASE_URL` set to `http://127.0.0.1:8091/api/v1`. Open `http://127.0.0.1:3000`. Stop both processes when finished and remove those process overrides before connecting to the real backend. Do not use this fixture for deployed hosting.
