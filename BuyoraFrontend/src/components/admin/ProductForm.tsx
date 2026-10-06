@@ -12,6 +12,7 @@ import type { Category, Product } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { MerchandisingEditor } from './MerchandisingEditor';
 export function ProductForm({ productId }: { productId?: number }) {
   const categories = useQuery({
     queryKey: ['adminCategories'],
@@ -29,7 +30,7 @@ export function ProductForm({ productId }: { productId?: number }) {
     );
   return (
     <ProductEditor
-      key={productId ?? 'new'}
+      key={product.data?.updatedAt ?? productId ?? 'new'}
       product={product.data}
       categories={categories.data?.content ?? []}
     />
@@ -54,13 +55,16 @@ function ProductEditor({ product, categories }: { product?: Product; categories:
     };
     try {
       if (product) await adminService.updateProduct(product.id, common);
-      else
-        await adminService.createProduct({
+      else {
+        const created = await adminService.createProduct({
           ...common,
           variants: [
             { sku: String(form.get('sku')), price: Number(form.get('price')), active: true },
           ],
         });
+        router.push('/admin/products/' + created.id + '/edit');
+        return;
+      }
       router.push('/admin/products');
       router.refresh();
     } catch (error) {
@@ -70,92 +74,95 @@ function ProductEditor({ product, categories }: { product?: Product; categories:
     }
   }
   return (
-    <form onSubmit={submit} className="max-w-3xl space-y-5 rounded-xl border bg-white p-6">
-      <div>
-        <Label htmlFor="product-name">Product name</Label>
-        <Input
-          id="product-name"
-          name="name"
-          required
-          maxLength={200}
-          defaultValue={product?.name}
-        />
-      </div>
-      <div>
-        <Label htmlFor="product-category">Category</Label>
-        <select
-          id="product-category"
-          name="category"
-          required
-          className="mt-1 w-full rounded border p-2"
-          defaultValue={categories.find((c) => c.id === product?.category.id)?.publicId ?? ''}
-        >
-          <option value="" disabled>
-            Select a category
-          </option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.publicId}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <Label htmlFor="product-short">Short description</Label>
-        <Input
-          id="product-short"
-          name="shortDescription"
-          maxLength={1000}
-          defaultValue={product?.shortDescription}
-        />
-      </div>
-      <div>
-        <Label htmlFor="product-description">Description</Label>
-        <Textarea
-          id="product-description"
-          name="description"
-          maxLength={20000}
-          defaultValue={product?.description}
-        />
-      </div>
-      {!product && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <Label htmlFor="product-sku">SKU</Label>
-            <Input id="product-sku" name="sku" required maxLength={100} />
-          </div>
-          <div>
-            <Label htmlFor="product-price">Price (LKR)</Label>
-            <Input id="product-price" name="price" required type="number" min="0" step="0.01" />
-          </div>
+    <>
+      <form onSubmit={submit} className="max-w-3xl space-y-5 rounded-xl border bg-white p-6">
+        <div>
+          <Label htmlFor="product-name">Product name</Label>
+          <Input
+            id="product-name"
+            name="name"
+            required
+            maxLength={200}
+            defaultValue={product?.name}
+          />
         </div>
-      )}
-      <div>
-        <Label htmlFor="product-status">Status</Label>
-        <select
-          id="product-status"
-          name="status"
-          className="ml-3 rounded border p-2"
-          defaultValue={product?.status ?? 'DRAFT'}
-        >
-          <option>DRAFT</option>
-          <option>ACTIVE</option>
-          <option>ARCHIVED</option>
-        </select>
-      </div>
-      {!product && (
-        <p className="text-muted-foreground text-sm">
-          New products start with zero stock. Add stock from Inventory before selling.
-        </p>
-      )}
-      {error && (
-        <p role="alert" className="text-destructive">
-          {error}
-        </p>
-      )}
-      <Button type="submit" disabled={pending || !categories.length}>
-        {pending ? 'Saving…' : 'Save product'}
-      </Button>
-    </form>
+        <div>
+          <Label htmlFor="product-category">Category</Label>
+          <select
+            id="product-category"
+            name="category"
+            required
+            className="mt-1 w-full rounded border p-2"
+            defaultValue={categories.find((c) => c.id === product?.category.id)?.publicId ?? ''}
+          >
+            <option value="" disabled>
+              Select a category
+            </option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.publicId}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <Label htmlFor="product-short">Short description</Label>
+          <Input
+            id="product-short"
+            name="shortDescription"
+            maxLength={1000}
+            defaultValue={product?.shortDescription}
+          />
+        </div>
+        <div>
+          <Label htmlFor="product-description">Description</Label>
+          <Textarea
+            id="product-description"
+            name="description"
+            maxLength={20000}
+            defaultValue={product?.description}
+          />
+        </div>
+        {!product && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <Label htmlFor="product-sku">SKU</Label>
+              <Input id="product-sku" name="sku" required maxLength={100} />
+            </div>
+            <div>
+              <Label htmlFor="product-price">Price (LKR)</Label>
+              <Input id="product-price" name="price" required type="number" min="0" step="0.01" />
+            </div>
+          </div>
+        )}
+        <div>
+          <Label htmlFor="product-status">Status</Label>
+          <select
+            id="product-status"
+            name="status"
+            className="ml-3 rounded border p-2"
+            defaultValue={product?.status ?? 'DRAFT'}
+          >
+            <option>DRAFT</option>
+            <option>ACTIVE</option>
+            <option>ARCHIVED</option>
+          </select>
+        </div>
+        {!product && (
+          <p className="text-muted-foreground text-sm">
+            New products start with zero stock. Add stock from Inventory before selling.
+          </p>
+        )}
+        {error && (
+          <p role="alert" className="text-destructive">
+            {error}
+          </p>
+        )}
+        <Button type="submit" disabled={pending || !categories.length}>
+          {pending ? 'Saving…' : 'Save product'}
+        </Button>
+      </form>
+      {product && <MerchandisingEditor product={product} />}
+    </>
   );
 }
