@@ -19,19 +19,19 @@ export function FilterDrawer(
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger>
-        <Button variant="outline" size="sm" className="flex items-center gap-2">
-          <Filter className="h-4 w-4" />
-          Filters
-          {props.activeCount > 0 && (
-            <Badge
-              variant="secondary"
-              className="ml-1 flex h-5 min-w-5 items-center justify-center rounded-full px-1.5"
-            >
-              {props.activeCount}
-            </Badge>
-          )}
-        </Button>
+      <SheetTrigger
+        render={<Button variant="outline" size="sm" className="flex items-center gap-2" />}
+      >
+        <Filter className="h-4 w-4" />
+        Filters
+        {props.activeCount > 0 && (
+          <Badge
+            variant="secondary"
+            className="ml-1 flex h-5 min-w-5 items-center justify-center rounded-full px-1.5"
+          >
+            {props.activeCount}
+          </Badge>
+        )}
       </SheetTrigger>
       <SheetContent side="right" className="flex h-full w-full flex-col p-0 sm:max-w-md">
         <SheetHeader className="border-b p-4">

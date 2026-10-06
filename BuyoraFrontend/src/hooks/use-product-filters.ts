@@ -9,6 +9,8 @@ export function useProductFilters() {
 
   const filters = useMemo(() => {
     const f: ProductFilter = {};
+    const category = searchParams.get('category');
+    if (category) f.categorySlug = category;
     const q = searchParams.get('q');
     if (q) f.q = q;
     const page = searchParams.get('page');

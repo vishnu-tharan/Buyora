@@ -13,7 +13,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const q = typeof resolvedSearchParams.q === 'string' ? resolvedSearchParams.q : '';
 
   return {
-    title: q ? `Search results for "${q}" | Buyora` : 'Search | Buyora',
+    title: q ? `Search results for "${q}"` : 'Search',
     description: 'Search for products across all categories',
   };
 }

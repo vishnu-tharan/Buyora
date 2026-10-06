@@ -16,12 +16,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   try {
     const category = await categoriesService.getCategory(resolvedParams.slug);
     return {
-      title: `${category.name} | Buyora`,
+      title: category.name,
       description: category.description || `Browse our collection of ${category.name} products`,
     };
   } catch {
     return {
-      title: 'Category Not Found | Buyora',
+      title: 'Category Not Found',
     };
   }
 }

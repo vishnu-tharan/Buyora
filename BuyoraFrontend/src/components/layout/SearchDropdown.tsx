@@ -8,9 +8,11 @@ import { SearchSuggestion } from '@/types/search';
 import { Search, X } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useId } from 'react';
 
 export function SearchDropdown() {
+  const listId = useId();
+  const [activeIndex, setActiveIndex] = useState(-1);
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [suggestions, setSuggestions] = useState<SearchSuggestion[] | null>(null);
@@ -78,13 +80,40 @@ export function SearchDropdown() {
         <Input
           type="search"
           aria-label="Search products"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded={isOpen && !!suggestions?.length}
+          aria-controls={isOpen && suggestions?.length ? listId : undefined}
+          aria-activedescendant={
+            activeIndex >= 0 && suggestions?.[activeIndex] ? listId + '-' + activeIndex : undefined
+          }
           placeholder="Search products..."
           className="bg-muted focus:bg-background focus:border-primary w-full rounded-full border-transparent pr-10 pl-9"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActiveIndex(-1);
+            setSuggestions(null);
+          }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') handleSearch(query);
+            if (e.key === 'ArrowDown' && suggestions?.length) {
+              e.preventDefault();
+              setIsOpen(true);
+              setActiveIndex((i) => (i + 1) % suggestions.length);
+            }
+            if (e.key === 'ArrowUp' && suggestions?.length) {
+              e.preventDefault();
+              setActiveIndex((i) => (i <= 0 ? suggestions.length - 1 : i - 1));
+            }
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              const selected = suggestions?.[activeIndex];
+              if (selected) {
+                setIsOpen(false);
+                router.push('/product/' + selected.slug);
+              } else handleSearch(query);
+            }
             if (e.key === 'Escape') setIsOpen(false);
           }}
         />
@@ -92,6 +121,7 @@ export function SearchDropdown() {
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Clear search"
             className="text-muted-foreground absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2 rounded-full"
             onClick={() => {
               setQuery('');
@@ -153,11 +183,23 @@ export function SearchDropdown() {
                     <h4 className="text-muted-foreground mt-2 mb-2 px-2 text-xs font-semibold tracking-wider uppercase">
                       Products
                     </h4>
-                    <ul className="space-y-1">
-                      {suggestions.map((p) => (
-                        <li key={p.id}>
+                    <ul
+                      id={listId}
+                      role="listbox"
+                      aria-label="Suggested products"
+                      className="space-y-1"
+                    >
+                      {suggestions.map((p, index) => (
+                        <li key={p.id} role="presentation">
                           <button
-                            className="hover:bg-muted flex w-full items-center rounded-md p-2 text-left transition-colors"
+                            role="option"
+                            id={listId + '-' + index}
+                            aria-selected={activeIndex === index}
+                            tabIndex={-1}
+                            className={
+                              'hover:bg-muted flex w-full items-center rounded-md p-2 text-left transition-colors ' +
+                              (activeIndex === index ? 'bg-muted' : '')
+                            }
                             onClick={() => {
                               setIsOpen(false);
                               router.push('/product/' + p.slug);

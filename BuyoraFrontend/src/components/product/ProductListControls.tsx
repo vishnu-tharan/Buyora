@@ -41,7 +41,9 @@ export function ProductListControls({
             }}
           >
             <SelectTrigger className="h-9 w-[160px]">
-              <SelectValue />
+              <SelectValue>
+                {SORT_OPTIONS.find((option) => option.value === sort)?.label ?? 'Relevance'}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {SORT_OPTIONS.map((opt) => (

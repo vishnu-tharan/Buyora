@@ -12,6 +12,8 @@ import { useProductFilters } from '@/hooks/use-product-filters';
 import { productsService } from '@/services/products.service';
 import { PaginatedResponse, ProductSummary } from '@/types';
 import { useQuery } from '@tanstack/react-query';
+import { trackEvent } from '@/lib/analytics/events';
+import { useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
 
@@ -40,6 +42,15 @@ export function SearchPageClient({ query, initialProducts, deals = false }: Sear
     queryFn: () =>
       productsService.search({ ...filters, ...(deals ? { hasDiscount: true } : {}), size: 12 }),
   });
+  const tracked = useRef<string | null>(null);
+  useEffect(() => {
+    const term = filters.q || query;
+    const key = term + ':' + data.totalElements;
+    if (!isLoading && term && tracked.current !== key) {
+      tracked.current = key;
+      trackEvent({ type: 'search', query: term, resultsCount: data.totalElements });
+    }
+  }, [filters.q, query, data.totalElements, isLoading]);
   if (error)
     return (
       <ErrorState
@@ -55,11 +66,17 @@ export function SearchPageClient({ query, initialProducts, deals = false }: Sear
     <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">
-          Results for &quot;{filters.q || query}&quot;
+          {deals ? (
+            'Current deals'
+          ) : filters.q || query ? (
+            <>Results for &quot;{filters.q || query}&quot;</>
+          ) : filters.sort === 'NEWEST' ? (
+            'Fresh finds'
+          ) : (
+            'Explore the collection'
+          )}
         </h1>
-        <p className="text-muted-foreground mt-2">
-          Found {data.totalElements} items matching your search
-        </p>
+        <p className="text-muted-foreground mt-2">{data.totalElements} products to explore</p>
       </div>
 
       {data.totalElements === 0 && !hasActiveFilters && !isLoading ? (
