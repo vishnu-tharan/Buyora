@@ -10,7 +10,7 @@ test.describe('Navigation', () => {
 
   test('cart icon is visible', async ({ page }) => {
     await page.goto('/');
-    const cartButton = page.getByRole('button', { name: /cart/i }).or(page.getByLabel(/cart/i));
+    const cartButton = page.getByRole('button', { name: 'Cart', exact: true });
     await expect(cartButton).toBeVisible();
   });
 
