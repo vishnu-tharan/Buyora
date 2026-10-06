@@ -1,7 +1,9 @@
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { CategoryIcon } from '@/components/ui/CategoryIcon';
 import { categoriesService } from '@/services/categories.service';
+import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
-
 export async function CategoryGrid() {
   const categories = await categoriesService.getCategoryTree().catch(() => null);
   if (!categories)
@@ -10,36 +12,43 @@ export async function CategoryGrid() {
         <p role="status">Categories are temporarily unavailable.</p>
       </section>
     );
-  // Take top 8 categories
-  const topCategories = categories.slice(0, 8);
-
-  if (topCategories.length === 0) return null;
-
+  if (!categories.length) return null;
+  const tones = ['bg-[#f2e9df]', 'bg-[#e8eff0]', 'bg-[#e9ecdf]', 'bg-[#eee8f0]'];
   return (
-    <section className="container mx-auto max-w-screen-xl px-4 py-16">
+    <section className="container mx-auto max-w-screen-xl px-4 py-8 md:py-12">
       <SectionHeader
-        title="Shop by Category"
-        linkText="View All Categories"
+        title="A world of good finds"
+        subtitle="Start with what you love."
+        linkText="All categories"
         linkHref="/categories"
       />
-
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-        {topCategories.map((category) => (
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+        {categories.slice(0, 8).map((category, i) => (
           <Link
             key={category.id}
             href={`/category/${category.slug}`}
-            className="group bg-muted relative aspect-square overflow-hidden rounded-2xl transition-transform hover:scale-[1.02]"
+            className={`group relative flex min-h-36 flex-col justify-between overflow-hidden rounded-2xl p-5 transition hover:-translate-y-1 md:min-h-44 ${tones[i % tones.length]}`}
           >
-            {/* Fallback gradient if no image */}
-            <div className="from-primary/20 to-primary/40 absolute inset-0 bg-gradient-to-br opacity-80" />
-
-            <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-            <div className="absolute right-0 bottom-0 left-0 z-20 p-4 md:p-6">
-              <h3 className="text-lg font-bold tracking-tight text-white capitalize transition-transform group-hover:translate-x-1 md:text-xl">
-                {category.name}
-              </h3>
-            </div>
+            {category.imageUrl ? (
+              <Image
+                src={category.imageUrl}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 45vw, 280px"
+                className="object-cover opacity-20"
+              />
+            ) : null}
+            <span className="text-primary relative mb-5 flex size-12 items-center justify-center rounded-2xl bg-white/65">
+              <CategoryIcon name={category.name} />
+            </span>
+            <span className="relative flex items-center justify-between gap-2">
+              <span className="text-sm font-semibold md:text-base">{category.name}</span>
+              <ArrowUpRight
+                size={18}
+                className="text-primary shrink-0 transition group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </span>
           </Link>
         ))}
       </div>

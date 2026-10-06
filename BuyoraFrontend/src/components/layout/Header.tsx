@@ -13,7 +13,7 @@ import { useLogout } from '@/hooks/use-logout';
 import { useAuthStore } from '@/stores/auth.store';
 import { useCartStore } from '@/stores/cart.store';
 import { useUIStore } from '@/stores/ui.store';
-import { Heart, Menu, Search, ShoppingBag } from 'lucide-react';
+import { Columns3, Heart, Layers3, Menu, Search, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { MegaMenu } from './MegaMenu';
@@ -44,9 +44,9 @@ export function Header() {
 
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b shadow-sm">
-      <div className="container mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-4 px-4">
+      <div className="container mx-auto flex h-20 max-w-screen-xl items-center justify-between gap-4 px-4">
         {/* Mobile Left */}
-        <div className="flex items-center md:hidden">
+        <div className="flex items-center xl:hidden">
           <Button variant="ghost" size="icon" onClick={() => toggleMobileMenu()} aria-label="Menu">
             <Menu className="h-6 w-6" />
           </Button>
@@ -54,13 +54,17 @@ export function Header() {
 
         {/* Logo */}
         <div className="flex-shrink-0">
-          <Link href="/" className="text-primary text-2xl font-bold tracking-tight">
-            Buyora.
+          <Link
+            href="/"
+            className="text-primary font-display inline-flex items-center gap-2 text-2xl font-bold tracking-tight"
+          >
+            <Layers3 size={25} strokeWidth={1.5} aria-hidden="true" /> Buyora
+            <span className="text-[#b95728]">.</span>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
+        <nav className="hidden items-center gap-4 text-xs font-medium xl:flex">
           <Link href="/" className="hover:text-primary transition-colors">
             Home
           </Link>
@@ -116,8 +120,13 @@ export function Header() {
 
         {/* Icons */}
         <div className="flex items-center gap-2">
+          <Button asChild variant="ghost" size="icon" className="hidden lg:flex">
+            <Link href="/compare" aria-label="Compare products">
+              <Columns3 className="h-5 w-5" />
+            </Link>
+          </Button>
           {/* Wishlist (Desktop) */}
-          <Button asChild variant="ghost" size="icon" className="hidden md:flex">
+          <Button asChild variant="ghost" size="icon" className="hidden lg:flex">
             <Link href={isAuthenticated ? '/account/wishlist' : '/wishlist'} aria-label="Wishlist">
               <Heart className="h-5 w-5" />
             </Link>

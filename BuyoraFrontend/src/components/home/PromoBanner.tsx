@@ -1,21 +1,31 @@
-import { Button } from '@/components/ui/button';
+import { ArrowUpRight, BadgePercent, Tag } from 'lucide-react';
 import Link from 'next/link';
-
 export function PromoBanner() {
   return (
-    <section className="bg-primary text-primary-foreground relative w-full overflow-hidden py-16">
-      {/* Decorative patterns */}
-      <div className="absolute top-0 right-0 h-64 w-64 translate-x-1/3 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute bottom-0 left-0 h-80 w-80 -translate-x-1/4 translate-y-1/2 rounded-full bg-black/10 blur-3xl" />
-
-      <div className="relative z-10 container mx-auto flex max-w-screen-xl flex-col items-center px-4 text-center">
-        <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-5xl">Exclusive Deals</h2>
-        <p className="text-primary-foreground/80 mb-8 max-w-2xl text-lg md:text-xl">
-          Explore current offers and find savings on selected products.
-        </p>
-        <Button asChild size="lg" variant="secondary" className="px-8 font-bold">
-          <Link href="/deals">Shop Deals</Link>
-        </Button>
+    <section className="container mx-auto max-w-screen-xl px-4 py-6">
+      <div className="relative flex flex-col justify-between gap-6 overflow-hidden rounded-3xl bg-[#f1e5d6] p-7 md:flex-row md:items-center md:p-10">
+        <div className="flex items-center gap-5">
+          <span className="border-primary/10 text-primary hidden size-20 shrink-0 items-center justify-center rounded-3xl border bg-white/40 sm:flex">
+            <BadgePercent size={40} strokeWidth={1.3} aria-hidden="true" />
+          </span>
+          <div>
+            <p className="text-primary mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase">
+              <Tag size={14} aria-hidden="true" /> A good find feels even better
+            </p>
+            <h2 className="font-display text-3xl font-semibold tracking-tight">
+              Small prices. Big possibilities.
+            </h2>
+            <p className="text-muted-foreground mt-2 text-sm">
+              Discover current offers on selected products.
+            </p>
+          </div>
+        </div>
+        <Link
+          href="/deals"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex min-h-12 shrink-0 items-center justify-center gap-5 rounded-full px-6 text-sm font-semibold transition"
+        >
+          Explore deals <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );

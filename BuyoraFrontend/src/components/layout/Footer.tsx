@@ -1,54 +1,101 @@
+import { ArrowUpRight, CreditCard, Layers3, PackageCheck } from 'lucide-react';
 import Link from 'next/link';
-
 export function Footer() {
+  const groups = [
+    {
+      title: 'Discover',
+      links: [
+        ['Categories', '/categories'],
+        ['New arrivals', '/search?sort=NEWEST'],
+        ['Current deals', '/deals'],
+        ['Brands', '/brands'],
+        ['Compare products', '/compare'],
+      ],
+    },
+    {
+      title: 'Here to help',
+      links: [
+        ['Contact us', '/contact'],
+        ['Frequently asked questions', '/faq'],
+        ['Delivery information', '/shipping'],
+        ['Returns & refunds', '/returns'],
+        ['Track an order', '/track-order'],
+      ],
+    },
+    {
+      title: 'Your Buyora',
+      links: [
+        ['Your account', '/account'],
+        ['Your orders', '/account/orders'],
+        ['Saved favourites', '/wishlist'],
+        ['Product alerts', '/account/alerts'],
+      ],
+    },
+  ];
   return (
-    <footer className="bg-muted border-t pt-12 pb-8">
-      <div className="container mx-auto max-w-screen-xl px-4">
-        <div className="mb-10 grid grid-cols-1 gap-8 md:grid-cols-4">
-          <div className="space-y-4">
-            <Link href="/" className="text-primary inline-block text-2xl font-bold tracking-tight">
-              Buyora.
+    <footer className="mt-10 border-t bg-[#132d35] text-white">
+      <div className="container mx-auto max-w-screen-xl px-4 py-12 md:py-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+          <div>
+            <Link
+              href="/"
+              className="font-display inline-flex items-center gap-2 text-3xl font-bold tracking-tight"
+            >
+              <Layers3 className="text-[#ffc79b]" strokeWidth={1.5} aria-hidden="true" /> Buyora
+              <span className="text-[#ffc79b]">.</span>
             </Link>
-            <p className="text-muted-foreground text-sm">
-              Quality products, unbeatable prices. Shop the latest from top brands in Sri Lanka.
+            <p className="mt-4 max-w-xs text-sm leading-7 text-white/60">
+              Good finds for your everyday.
+              <br />
+              Discover your next favourite, right here in Sri Lanka.
             </p>
+            <div className="mt-6 flex gap-3">
+              <span className="rounded-xl border border-white/15 p-3" title="Delivery information">
+                <PackageCheck size={20} aria-hidden="true" />
+              </span>
+              <span
+                className="rounded-xl border border-white/15 p-3"
+                title="Payment options at checkout"
+              >
+                <CreditCard size={20} aria-hidden="true" />
+              </span>
+            </div>
           </div>
-          <div>
-            <h4 className="mb-4 font-semibold">Shop</h4>
-            <ul className="text-muted-foreground space-y-2 text-sm">
-              <li>
-                <Link href="/categories" className="hover:text-foreground transition-colors">
-                  Categories
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="mb-4 font-semibold">Support</h4>
-            <ul className="text-muted-foreground space-y-2 text-sm">
-              <li>
-                <Link href="/account/orders" className="hover:text-foreground transition-colors">
-                  Your Orders
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="mb-4 font-semibold">Account</h4>
-            <ul className="text-muted-foreground space-y-2 text-sm">
-              <li>
-                <Link href="/account/profile" className="hover:text-foreground transition-colors">
-                  Your Profile
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {groups.map((group) => (
+            <div key={group.title}>
+              <h2 className="mb-5 text-sm font-semibold">{group.title}</h2>
+              <ul className="space-y-3">
+                {group.links.map(([label, href]) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="group inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white"
+                    >
+                      {label}
+                      <ArrowUpRight
+                        size={12}
+                        className="opacity-0 transition group-hover:opacity-100"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-
-        <div className="text-muted-foreground flex flex-col items-center justify-between gap-4 border-t pt-6 text-xs md:flex-row">
-          <p>&copy; 2026 Buyora. All rights reserved.</p>
-          <div className="flex items-center gap-2 font-medium">
-            Designed with care in Sri Lanka 🇱🇰
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6 text-xs text-white/50">
+          <p>© {new Date().getFullYear()} Buyora. All rights reserved.</p>
+          <div className="flex flex-wrap gap-5">
+            <Link href="/privacy" className="hover:text-white">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-white">
+              Terms
+            </Link>
+            <Link href="/privacy#preferences" className="hover:text-white">
+              Cookie preferences
+            </Link>
           </div>
         </div>
       </div>
