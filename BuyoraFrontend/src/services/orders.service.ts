@@ -7,6 +7,10 @@ export const ordersService = {
     api.get<PaginatedResponse<OrderSummary>>(ENDPOINTS.orders.list, {
       params: params as Record<string, string | number>,
     }),
+  getReturns: (number: string) =>
+    api.get<import('@/components/account/ReturnProgress').ReturnRecord[]>(
+      '/orders/' + encodeURIComponent(number) + '/returns'
+    ),
   getOrder: (orderNumber: string) => api.get<Order>(ENDPOINTS.orders.detail(orderNumber)),
   cancelOrder: (orderNumber: string, reason?: string) =>
     api.post<Order>(ENDPOINTS.orders.cancel(orderNumber), { reason }),

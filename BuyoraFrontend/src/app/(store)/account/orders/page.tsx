@@ -11,6 +11,7 @@ import { ordersService } from '@/services/orders.service';
 import { useQuery } from '@tanstack/react-query';
 import { PackageX, Search } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function OrdersPage() {
   const [page, setPage] = useState(1);
@@ -119,7 +120,7 @@ export default function OrdersPage() {
                 </Button>
               ) : (
                 <Button>
-                  <a href="/search">Start Shopping</a>
+                  <Link href="/search">Start Shopping</Link>
                 </Button>
               )}
             </div>

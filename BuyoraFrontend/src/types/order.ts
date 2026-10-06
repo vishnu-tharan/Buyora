@@ -71,6 +71,7 @@ export interface Order {
   deliveryMethod: string;
   estimatedDelivery?: string;
   trackingNumber?: string;
+  trackingUrl?: string;
   timeline: OrderTimeline[];
   notes?: string;
   canCancel: boolean;
