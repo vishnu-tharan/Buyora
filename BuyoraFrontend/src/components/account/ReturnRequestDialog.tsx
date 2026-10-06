@@ -47,7 +47,7 @@ export function ReturnRequestDialog({
   onSubmit,
   isLoading,
 }: ReturnRequestDialogProps) {
-  const selectedItems = items.map((item) => item.id);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [reason, setReason] = useState<string>('');
   const [notes, setNotes] = useState('');
   const [error, setError] = useState('');
@@ -56,7 +56,8 @@ export function ReturnRequestDialog({
     e.preventDefault();
     setError('');
 
-    if (selectedItems.length === 0) {
+    const eligibleIds = selectedItems.filter((id) => items.some((item) => item.id === id));
+    if (eligibleIds.length === 0) {
       setError('Please select at least one item to return.');
       return;
     }
@@ -65,7 +66,11 @@ export function ReturnRequestDialog({
       return;
     }
 
-    await onSubmit({ itemIds: selectedItems, reason, notes });
+    await onSubmit({
+      itemIds: eligibleIds,
+      reason,
+      notes,
+    });
   };
 
   return (
@@ -74,7 +79,7 @@ export function ReturnRequestDialog({
         <DialogHeader>
           <DialogTitle>Request Return</DialogTitle>
           <DialogDescription>
-            Returns currently apply to the whole order. Provide a reason for your request.
+            Select the items you want to return and tell us what happened.
           </DialogDescription>
         </DialogHeader>
 
@@ -84,6 +89,19 @@ export function ReturnRequestDialog({
             <div className="max-h-60 space-y-3 overflow-y-auto rounded-md border p-3 pr-2">
               {items.map((item) => (
                 <div key={item.id} className="flex items-start space-x-3">
+                  <input
+                    type="checkbox"
+                    aria-label={'Return ' + item.product.name}
+                    checked={selectedItems.includes(item.id)}
+                    onChange={() =>
+                      setSelectedItems((ids) =>
+                        ids.includes(item.id)
+                          ? ids.filter((id) => id !== item.id)
+                          : [...ids, item.id]
+                      )
+                    }
+                    className="mt-1 size-4"
+                  />
                   <div className="flex gap-3">
                     {item.product.primaryImage && (
                       <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded border">
