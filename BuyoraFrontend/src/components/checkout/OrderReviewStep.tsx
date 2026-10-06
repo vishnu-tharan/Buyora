@@ -8,6 +8,8 @@ import { formatCurrency } from '@/lib/formatting/currency';
 import { checkoutService } from '@/services/checkout.service';
 import { useCartStore, useCheckoutStore } from '@/stores';
 import { useQueryClient } from '@tanstack/react-query';
+import Link from 'next/link';
+import { trackEvent } from '@/lib/analytics/events';
 import { Edit2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 
@@ -59,6 +61,12 @@ export function OrderReviewStep() {
         deliveryMethod: state.shippingMethod.id,
         paymentMethod: state.paymentMethod,
         idempotencyKey: key,
+      });
+      trackEvent({
+        type: 'order_placed',
+        orderNumber: order.orderNumber,
+        total: order.total,
+        itemCount: order.items.length,
       });
       sessionStorage.setItem('currentOrderNumber', order.orderNumber);
       sessionStorage.removeItem('checkoutKey');
@@ -151,7 +159,15 @@ export function OrderReviewStep() {
 
       <div className="mt-6 rounded-lg bg-gray-50 p-4">
         <p className="mb-4 text-sm text-gray-600">
-          By placing your order, you agree to our Terms of Service and Privacy Policy.
+          By placing your order, you agree to our{' '}
+          <Link href="/terms" className="text-primary underline">
+            Terms of Service
+          </Link>{' '}
+          and{' '}
+          <Link href="/privacy" className="text-primary underline">
+            Privacy Policy
+          </Link>
+          .
         </p>
         <Button
           onClick={handlePlaceOrder}

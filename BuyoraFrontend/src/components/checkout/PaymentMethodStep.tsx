@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { storeService } from '@/services/store.service';
 import { checkoutService } from '@/services/checkout.service';
 import { useCheckoutStore } from '@/stores';
 import type { PaymentMethod } from '@/types/order';
@@ -46,8 +47,16 @@ export function PaymentMethodStep() {
     queryFn: checkoutService.preview,
     retry: false,
   });
-  const available = paymentMethods.filter((method) =>
-    query.data?.paymentMethods.includes(method.id)
+  const district = state.shippingAddress?.district ?? '';
+  const delivery = useQuery({
+    queryKey: ['delivery', district],
+    queryFn: () => storeService.delivery(district),
+    enabled: !!district,
+  });
+  const available = paymentMethods.filter(
+    (method) =>
+      query.data?.paymentMethods.includes(method.id) &&
+      (method.id !== 'CASH_ON_DELIVERY' || delivery.data?.codAvailable === true)
   );
   if (query.isError)
     return <ErrorState title="Payment methods are unavailable" onRetry={() => query.refetch()} />;
