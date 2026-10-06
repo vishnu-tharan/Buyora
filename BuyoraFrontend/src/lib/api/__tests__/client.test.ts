@@ -1,11 +1,29 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { api, BuyoraApiError } from '../client';
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.unstubAllEnvs();
+});
 const csrf = () =>
   new Response(JSON.stringify({ token: 'csrf-value', headerName: 'X-XSRF-TOKEN' }), {
     status: 200,
   });
 describe('API boundary', () => {
+  it('uses the Docker service address for server requests', async () => {
+    vi.stubGlobal('window', undefined);
+    vi.stubEnv('INTERNAL_API_URL', 'http://backend:8080/api/v1');
+    const fetch = vi.fn().mockResolvedValue(new Response('{}'));
+    vi.stubGlobal('fetch', fetch);
+    await api.get('/products');
+    expect(fetch.mock.calls[0][0]).toBe('http://backend:8080/api/v1/products');
+  });
+  it('keeps the internal service address out of browser requests', async () => {
+    vi.stubEnv('INTERNAL_API_URL', 'http://backend:8080/api/v1');
+    const fetch = vi.fn().mockResolvedValue(new Response('{}'));
+    vi.stubGlobal('fetch', fetch);
+    await api.get('/products');
+    expect(fetch.mock.calls[0][0]).toBe('http://localhost:8080/api/v1/products');
+  });
   it('rejects external paths before sending credentials', async () => {
     const fetch = vi.fn();
     vi.stubGlobal('fetch', fetch);
