@@ -1,3 +1,4 @@
+import { trackEvent } from '@/lib/analytics/events';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import { wishlistService } from '@/services/wishlist.service';
@@ -27,6 +28,7 @@ export function useToggleWishlist() {
           store.removeLocal(productId);
         } else {
           store.addLocal(productId);
+          trackEvent({ type: 'add_to_wishlist', productId });
         }
         return null;
       }
@@ -37,7 +39,9 @@ export function useToggleWishlist() {
       if (exists) {
         return wishlistService.removeItem(productId);
       } else {
-        return wishlistService.addItem(productId);
+        const added = await wishlistService.addItem(productId);
+        trackEvent({ type: 'add_to_wishlist', productId });
+        return added;
       }
     },
     onSuccess: (data) => {
