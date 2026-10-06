@@ -1,4 +1,7 @@
 'use client';
+import { ReviewPhotos } from './ReviewPhotos';
+import { api } from '@/lib/api/client';
+import { ImagePlus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { Input } from '@/components/ui/input';
@@ -24,6 +27,15 @@ export function ProductReviews({
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('createdAt,desc');
   const [formOpen, setFormOpen] = useState(false);
+  const [photos, setPhotos] = useState<string[]>([]);
+  const upload = useMutation({
+    mutationFn: async (file: File) => {
+      const body = new FormData();
+      body.append('file', file);
+      return api.post<{ url: string }>('/products/' + productId + '/review-photos', body);
+    },
+    onSuccess: (r) => setPhotos((p) => [...p, r.url]),
+  });
   const [submitted, setSubmitted] = useState(false);
   const { user } = useAuth();
   const client = useQueryClient();
@@ -49,6 +61,7 @@ export function ProductReviews({
       rating: Number(form.get('rating')),
       title: String(form.get('title')),
       body: String(form.get('body')),
+      images: photos,
     });
   }
   return (
@@ -90,12 +103,53 @@ export function ProductReviews({
             <Label htmlFor="review-body">Your review</Label>
             <Textarea name="body" id="review-body" required maxLength={5000} />
           </div>
+          <div>
+            <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border px-3 text-sm">
+              <ImagePlus size={17} aria-hidden="true" />
+              {upload.isPending ? 'Uploading…' : 'Add customer photo'}
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                className="sr-only"
+                disabled={upload.isPending || photos.length >= 5}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) upload.mutate(file);
+                  e.target.value = '';
+                }}
+              />
+            </label>
+            <p className="text-muted-foreground mt-2 text-xs">
+              Up to five photos, 5 MB each. Available for delivered purchases. Photos appear after
+              moderation.
+            </p>
+            {photos.map((url, i) => (
+              <span
+                key={url}
+                className="bg-muted mt-2 mr-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs"
+              >
+                Photo {i + 1}
+                <button
+                  type="button"
+                  aria-label={'Remove photo ' + (i + 1)}
+                  onClick={() => setPhotos((p) => p.filter((x) => x !== url))}
+                >
+                  <X size={14} />
+                </button>
+              </span>
+            ))}
+            {upload.isError && (
+              <p role="alert" className="text-destructive mt-2 text-xs">
+                {getErrorDetails(upload.error).message}
+              </p>
+            )}
+          </div>
           {create.error && (
             <p role="alert" className="text-destructive">
               {getErrorDetails(create.error).message}
             </p>
           )}
-          <Button type="submit" disabled={create.isPending}>
+          <Button type="submit" disabled={create.isPending || upload.isPending}>
             {create.isPending ? 'Submitting…' : 'Submit review'}
           </Button>
         </form>
@@ -145,6 +199,7 @@ export function ProductReviews({
                 </div>
                 {review.title && <h3 className="font-semibold">{review.title}</h3>}
                 <p className="text-muted-foreground text-sm whitespace-pre-wrap">{review.body}</p>
+                <ReviewPhotos images={review.images} />
               </article>
             ))
           ) : (

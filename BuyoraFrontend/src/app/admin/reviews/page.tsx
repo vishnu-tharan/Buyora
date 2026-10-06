@@ -1,4 +1,5 @@
 'use client';
+import { ReviewPhotos } from '@/components/product/ReviewPhotos';
 import { Pagination } from '@/components/ui/Pagination';
 import { useState } from 'react';
 import { Column, DataTable } from '@/components/admin/DataTable';
@@ -33,7 +34,12 @@ export default function AdminReviewsPage() {
     { header: 'Status', cell: (r) => <Badge>{r.status || 'PENDING'}</Badge> },
     {
       header: 'Review',
-      cell: (r) => <p className="max-w-md text-sm whitespace-pre-wrap">{r.body}</p>,
+      cell: (r) => (
+        <div className="max-w-md">
+          <p className="text-sm whitespace-pre-wrap">{r.body}</p>
+          <ReviewPhotos images={r.images} />
+        </div>
+      ),
     },
     {
       header: 'Actions',
