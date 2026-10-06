@@ -1,6 +1,9 @@
 spring:
+  mail:
+    host: localhost
+    port: 1025
   datasource:
-    url: ${TEST_DB_URL:jdbc:tc:postgresql:16:///buyora_test?TC_REUSABLE=true}
+    url: ${TEST_DB_URL:jdbc:tc:postgresql:16:///buyora_test}
     username: test
     password: test
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
