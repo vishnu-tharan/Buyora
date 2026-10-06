@@ -1,8 +1,18 @@
 spring:
   application:
     name: buyora-api
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 21MB
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  mail:
+    properties:
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.writetimeout: 5000
 
   # JPA
   jpa:
@@ -100,8 +110,8 @@ buyora:
   storage:
     provider: ${STORAGE_PROVIDER:minio}
     endpoint: ${STORAGE_ENDPOINT:http://localhost:9000}
-    access-key: ${STORAGE_ACCESS_KEY}
-    secret-key: ${STORAGE_SECRET_KEY}
+    access-key: ${STORAGE_ACCESS_KEY:}
+    secret-key: ${STORAGE_SECRET_KEY:}
     bucket-name: ${STORAGE_BUCKET:buyora-media}
     public-base-url: ${STORAGE_PUBLIC_BASE_URL:http://localhost:9000/buyora-media}
   email:
@@ -113,6 +123,9 @@ buyora:
       merchant-secret: ${PAYHERE_MERCHANT_SECRET:}
       sandbox: ${PAYHERE_SANDBOX:true}
       payment-url: ${PAYHERE_PAYMENT_URL:https://sandbox.payhere.lk/pay/checkout}
+      app-id: ${PAYHERE_APP_ID:}
+      app-secret: ${PAYHERE_APP_SECRET:}
+      operations-enabled: ${PAYHERE_OPERATIONS_ENABLED:false}
     stripe:
       secret-key: ${STRIPE_SECRET_KEY:}
       webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
@@ -130,4 +143,14 @@ buyora:
     number-prefix: ORD
     cancellation-window-hours: 24
   returns:
-    window-days: 30
+    window-days: ${RETURN_WINDOW_DAYS:30}
+  store:
+    support-email: ${SUPPORT_EMAIL:}
+    whatsapp-number: ${WHATSAPP_NUMBER:}
+    support-hours: ${SUPPORT_HOURS:}
+    business-name: ${BUSINESS_NAME:Buyora}
+    business-address: ${BUSINESS_ADDRESS:}
+    delivery-min-days: ${DELIVERY_MIN_DAYS:3}
+    delivery-max-days: ${DELIVERY_MAX_DAYS:5}
+    free-return-shipping: ${FREE_RETURN_SHIPPING:false}
+    cod-districts: ${COD_DISTRICTS:}
