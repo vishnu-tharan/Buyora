@@ -69,7 +69,7 @@ export function ProductCard({ product, showWishlist = true, priority = false }: 
   };
 
   return (
-    <article className="group bg-card text-card-foreground border-primary/10 relative flex flex-col overflow-hidden rounded-2xl border shadow-none transition-all hover:-translate-y-1 hover:shadow-lg">
+    <article className="group bg-card text-card-foreground border-primary/10 hover:border-primary/30 relative flex flex-col overflow-hidden rounded-2xl border shadow-none transition-all hover:-translate-y-1 hover:shadow-lg">
       <div className="flex h-full flex-col">
         {/* Image Container */}
         <div className="bg-muted relative aspect-square overflow-hidden">
@@ -84,7 +84,7 @@ export function ProductCard({ product, showWishlist = true, priority = false }: 
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
               preload={priority}
-              className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 
@@ -116,23 +116,6 @@ export function ProductCard({ product, showWishlist = true, priority = false }: 
               <Heart className={isWishlisted ? 'fill-primary text-primary h-4 w-4' : 'h-4 w-4'} />
             </button>
           )}
-
-          {/* Add to Cart Overlay (Desktop) */}
-          <div className="absolute right-0 bottom-0 left-0 hidden translate-y-full p-3 opacity-0 transition-all duration-300 group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100 md:block">
-            <Button
-              className="w-full shadow-lg"
-              variant="default"
-              onClick={handleAddToCart}
-              disabled={isOutOfStock || addCart.isPending}
-            >
-              <ShoppingCart className="mr-2 h-4 w-4" />
-              {isOutOfStock
-                ? 'Out of Stock'
-                : product.variants.length !== 1
-                  ? 'Choose options'
-                  : 'Add to Cart'}
-            </Button>
-          </div>
         </div>
 
         {/* Content */}
@@ -142,7 +125,7 @@ export function ProductCard({ product, showWishlist = true, priority = false }: 
             <Link href={`/product/${product.slug}`}>{product.name}</Link>
           </h3>
 
-          {product.averageRating !== undefined && (
+          {(product.reviewCount ?? 0) > 0 && product.averageRating !== undefined && (
             <div className="mb-2 flex items-center gap-1.5">
               <StarRating rating={product.averageRating} size="sm" />
               {product.reviewCount !== undefined && (
@@ -152,18 +135,26 @@ export function ProductCard({ product, showWishlist = true, priority = false }: 
           )}
 
           <div className="mt-auto flex items-end justify-between">
-            <PriceDisplay price={price} compareAtPrice={originalPrice} />
+            <PriceDisplay
+              price={price}
+              compareAtPrice={originalPrice}
+              className="flex-wrap text-sm"
+            />
           </div>
 
-          {/* Mobile Add to Cart */}
+          {/* Purchase action */}
           <Button
-            className="mt-3 w-full md:hidden"
+            className="mt-3 w-full"
             size="sm"
             onClick={handleAddToCart}
             disabled={isOutOfStock || addCart.isPending}
           >
             <ShoppingCart className="mr-2 h-4 w-4" />
-            {product.variants.length !== 1 ? 'Choose options' : 'Add to Cart'}
+            {isOutOfStock
+              ? 'Out of Stock'
+              : product.variants.length !== 1
+                ? 'Choose options'
+                : 'Add to Cart'}
           </Button>
           <CompareButton id={product.id} compact />
         </div>
