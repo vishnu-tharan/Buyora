@@ -1,4 +1,6 @@
 export const dynamic = 'force-dynamic';
+import { DiscoveryCollection } from '@/components/home/DiscoveryCollection';
+import { CurrentOffers } from '@/components/home/CurrentOffers';
 import { CategoryGrid } from '@/components/home/CategoryGrid';
 import { HomeRecentlyViewed } from '@/components/home/HomeRecentlyViewed';
 import { HeroSection } from '@/components/home/HeroSection';
@@ -15,16 +17,10 @@ const NewArrivals = nextDynamic(
   }
 );
 
-const BestSellers = nextDynamic(
-  () => import('@/components/home/BestSellers').then((mod) => ({ default: mod.BestSellers })),
-  {
-    loading: () => <SectionSkeleton />,
-  }
-);
-
 export const metadata = {
-  title: 'Buyora - Quality Products, Unbeatable Prices',
-  description: 'Shop the latest products from top brands in Sri Lanka.',
+  title: 'Buyora | Everyday finds & premium picks in Sri Lanka',
+  description:
+    'Shop electronics, fashion, home and everyday essentials in Sri Lanka. Prices in LKR.',
 };
 
 function SectionSkeleton() {
@@ -56,9 +52,12 @@ export default function HomePage() {
         <CategoryGrid />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
-        <BestSellers />
+        <DiscoveryCollection />
       </Suspense>
       <PromoBanner />
+      <Suspense fallback={<SectionSkeleton />}>
+        <CurrentOffers />
+      </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <NewArrivals />
       </Suspense>
