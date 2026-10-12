@@ -1,0 +1,376 @@
+{
+  "currency": "LKR",
+  "purpose": "Local sample catalog; prices and quantities are examples, not confirmed stock or market quotations.",
+  "categories": [
+    {
+      "slug": "electronics",
+      "name": "Electronics",
+      "image": "/products/headphones.jpg"
+    },
+    {
+      "slug": "fashion",
+      "name": "Fashion",
+      "image": "/products/sneakers.jpg"
+    },
+    {
+      "slug": "accessories",
+      "name": "Accessories",
+      "image": "/products/watch.jpg"
+    },
+    {
+      "slug": "home-living",
+      "name": "Home & Living",
+      "image": "/products/chair.jpg"
+    },
+    {
+      "slug": "kitchen-dining",
+      "name": "Kitchen & Dining",
+      "image": "/products/mug.jpg"
+    },
+    {
+      "slug": "beauty",
+      "name": "Beauty & Care",
+      "image": "/products/skincare.jpg"
+    },
+    {
+      "slug": "books-stationery",
+      "name": "Books & Stationery",
+      "image": "/products/notebook.jpg"
+    },
+    {
+      "slug": "sports-fitness",
+      "name": "Sports & Fitness",
+      "image": "/products/dumbbells.jpg"
+    }
+  ],
+  "products": [
+    {
+      "slug": "sample-headphones",
+      "name": "Studio over-ear headphones",
+      "category": "electronics",
+      "image": "/products/headphones.jpg",
+      "price": 12500,
+      "compareAtPrice": 14900,
+      "summary": "Enjoy your everyday listening setup.",
+      "options": {
+        "Color": [
+          "Black"
+        ]
+      },
+      "featured": true,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-speaker",
+      "name": "Bookshelf speaker",
+      "category": "electronics",
+      "image": "/products/speaker.jpg",
+      "price": 17500,
+      "compareAtPrice": 19900,
+      "summary": "A speaker for your listening corner.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-earbuds",
+      "name": "Wireless earbuds",
+      "category": "electronics",
+      "image": "/products/earbuds.jpg",
+      "price": 8500,
+      "compareAtPrice": 9900,
+      "summary": "A compact everyday listening companion.",
+      "options": {},
+      "featured": false,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-laptop",
+      "name": "Premium slim laptop",
+      "category": "electronics",
+      "image": "/products/laptop.jpg",
+      "price": 329000,
+      "compareAtPrice": null,
+      "summary": "A premium addition to your work setup.",
+      "options": {},
+      "featured": true,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-phone",
+      "name": "Premium smartphone",
+      "category": "electronics",
+      "image": "/products/phone.jpg",
+      "price": 149000,
+      "compareAtPrice": null,
+      "summary": "An upgrade for work, photos and everyday connections.",
+      "options": {},
+      "featured": false,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-camera",
+      "name": "Creative camera kit",
+      "category": "electronics",
+      "image": "/products/camera.jpg",
+      "price": 185000,
+      "compareAtPrice": 199000,
+      "summary": "Explore photography with a camera and lens setup.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-keyboard",
+      "name": "Slim wireless keyboard",
+      "category": "electronics",
+      "image": "/products/keyboard.jpg",
+      "price": 9900,
+      "compareAtPrice": null,
+      "summary": "A clean addition to your desk.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-sneakers",
+      "name": "Red sport sneakers",
+      "category": "fashion",
+      "image": "/products/sneakers.jpg",
+      "price": 8900,
+      "compareAtPrice": 10900,
+      "summary": "Make room for a fresh pair of everyday sneakers.",
+      "options": {
+        "Size": [
+          "UK 7",
+          "UK 8",
+          "UK 9"
+        ]
+      },
+      "featured": true,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-tshirt",
+      "name": "Everyday white T-shirt",
+      "category": "fashion",
+      "image": "/products/tshirt.jpg",
+      "price": 2200,
+      "compareAtPrice": 2800,
+      "summary": "A simple white staple for your wardrobe.",
+      "options": {
+        "Size": [
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-handbag",
+      "name": "Classic red handbag",
+      "category": "fashion",
+      "image": "/products/handbag.jpg",
+      "price": 7900,
+      "compareAtPrice": 9900,
+      "summary": "A statement accessory for your everyday outfits.",
+      "options": {},
+      "featured": false,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-watch",
+      "name": "Everyday smart watch",
+      "category": "accessories",
+      "image": "/products/watch.jpg",
+      "price": 11900,
+      "compareAtPrice": 14900,
+      "summary": "A wearable accessory for your daily routine.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-sunglasses",
+      "name": "Classic black sunglasses",
+      "category": "accessories",
+      "image": "/products/sunglasses.jpg",
+      "price": 2900,
+      "compareAtPrice": 3900,
+      "summary": "A classic finishing touch for your look.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-backpack",
+      "name": "Everyday commuter backpack",
+      "category": "accessories",
+      "image": "/products/backpack.jpg",
+      "price": 5900,
+      "compareAtPrice": 6900,
+      "summary": "Bring your daily essentials along.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-lamp",
+      "name": "Adjustable desk lamp",
+      "category": "home-living",
+      "image": "/products/lamp.jpg",
+      "price": 4900,
+      "compareAtPrice": 5900,
+      "summary": "A practical finishing touch for your workspace.",
+      "options": {},
+      "featured": true,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-chair",
+      "name": "Upholstered accent chair",
+      "category": "home-living",
+      "image": "/products/chair.jpg",
+      "price": 24500,
+      "compareAtPrice": null,
+      "summary": "Create a cosy corner at home.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-candle",
+      "name": "Warm glow candle",
+      "category": "home-living",
+      "image": "/products/candle.jpg",
+      "price": 1200,
+      "compareAtPrice": null,
+      "summary": "A small addition to a relaxing evening.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-plant",
+      "name": "Small potted plant",
+      "category": "home-living",
+      "image": "/products/plant.jpg",
+      "price": 1500,
+      "compareAtPrice": null,
+      "summary": "Bring a little greenery to your space.",
+      "options": {},
+      "featured": false,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-mug",
+      "name": "Everyday ceramic mug",
+      "category": "kitchen-dining",
+      "image": "/products/mug.jpg",
+      "price": 750,
+      "compareAtPrice": null,
+      "summary": "Your favourite drinks deserve a favourite mug.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-bottle",
+      "name": "Reusable water bottle",
+      "category": "kitchen-dining",
+      "image": "/products/bottle.jpg",
+      "price": 1800,
+      "compareAtPrice": 2200,
+      "summary": "An everyday companion for keeping water close.",
+      "options": {},
+      "featured": false,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-skincare",
+      "name": "Daily skincare essentials",
+      "category": "beauty",
+      "image": "/products/skincare.jpg",
+      "price": 3900,
+      "compareAtPrice": 4900,
+      "summary": "Explore a daily-care collection.",
+      "options": {},
+      "featured": false,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-perfume",
+      "name": "Signature fragrance",
+      "category": "beauty",
+      "image": "/products/perfume.jpg",
+      "price": 24900,
+      "compareAtPrice": null,
+      "summary": "Explore a fragrance for your collection.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-books",
+      "name": "Reading collection",
+      "category": "books-stationery",
+      "image": "/products/books.jpg",
+      "price": 4500,
+      "compareAtPrice": null,
+      "summary": "Find a little inspiration for your bookshelf.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    },
+    {
+      "slug": "sample-notebook",
+      "name": "Pocket notebook & pen",
+      "category": "books-stationery",
+      "image": "/products/notebook.jpg",
+      "price": 200,
+      "compareAtPrice": null,
+      "summary": "A little space for notes, lists and ideas.",
+      "options": {},
+      "featured": false,
+      "newArrival": true,
+      "stock": 20
+    },
+    {
+      "slug": "sample-dumbbells",
+      "name": "Strength training barbell",
+      "category": "sports-fitness",
+      "image": "/products/dumbbells.jpg",
+      "price": 18900,
+      "compareAtPrice": 22900,
+      "summary": "Add a strength-training essential to your fitness setup.",
+      "options": {},
+      "featured": false,
+      "newArrival": false,
+      "stock": 20
+    }
+  ]
+}
