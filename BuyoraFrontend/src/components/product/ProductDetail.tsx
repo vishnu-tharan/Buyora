@@ -325,7 +325,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         <div className="min-w-0 flex-1">
           <p className="text-muted-foreground truncate text-xs">{product.name}</p>
           <p className="text-sm font-semibold">
-            {new Intl.NumberFormat('en-LK', { style: 'currency', currency: 'LKR' }).format(
+            {new Intl.NumberFormat('en-LK', { style: 'currency', currency: 'LKR', currencyDisplay: 'code' }).format(
               currentPrice
             )}
           </p>

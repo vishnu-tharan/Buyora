@@ -15,7 +15,7 @@ import type { Brand, PaginatedResponse } from '@/types';
 import { Category, ProductFilter } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 interface FilterSidebarProps {
   filters: ProductFilter;
@@ -88,12 +88,18 @@ export function FilterSidebar({
             <Slider
               min={0}
               max={500000}
-              step={1000}
+              step={100}
               key={priceRange.join('-')}
               defaultValue={priceRange}
               onValueCommitted={(val) =>
                 handlePriceCommit(Array.isArray(val) ? val : [val, 500000])
               }
+            />
+            <PriceInputs
+              key={priceRange.join(':')}
+              min={priceRange[0]}
+              max={priceRange[1]}
+              onApply={handlePriceCommit}
             />
             <div className="flex items-center justify-between text-sm">
               <span>LKR {priceRange[0].toLocaleString()}</span>
@@ -208,6 +214,83 @@ export function FilterSidebar({
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+    </div>
+  );
+}
+
+function PriceInputs({
+  min,
+  max,
+  onApply,
+}: {
+  min: number;
+  max: number;
+  onApply: (range: number[]) => void;
+}) {
+  const id = useId();
+  const [minimum, setMinimum] = useState(String(min));
+  const [maximum, setMaximum] = useState(String(max));
+  const [error, setError] = useState('');
+  function apply() {
+    const low = Number(minimum),
+      high = Number(maximum);
+    if (
+      !minimum.trim() ||
+      !maximum.trim() ||
+      !Number.isFinite(low) ||
+      !Number.isFinite(high) ||
+      low < 0 ||
+      high > 500000 ||
+      high < low
+    ) {
+      setError('Enter a valid range between LKR 0 and 500,000.');
+      return;
+    }
+    setError('');
+    onApply([low, high]);
+  }
+  return (
+    <div className="space-y-3">
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <Label htmlFor={id + '-min'} className="text-xs">
+            Minimum (LKR)
+          </Label>
+          <Input
+            id={id + '-min'}
+            type="number"
+            min="0"
+            max="500000"
+            step="1"
+            value={minimum}
+            onChange={(e) => setMinimum(e.target.value)}
+            className="mt-1 h-9"
+          />
+        </div>
+        <div>
+          <Label htmlFor={id + '-max'} className="text-xs">
+            Maximum (LKR)
+          </Label>
+          <Input
+            id={id + '-max'}
+            type="number"
+            min="0"
+            max="500000"
+            step="1"
+            value={maximum}
+            onChange={(e) => setMaximum(e.target.value)}
+            className="mt-1 h-9"
+          />
+        </div>
+      </div>
+      {error && (
+        <p role="alert" className="text-destructive text-xs">
+          {error}
+        </p>
+      )}
+      <Button type="button" variant="outline" size="sm" className="w-full" onClick={apply}>
+        Apply prices
+      </Button>
     </div>
   );
 }
