@@ -37,3 +37,5 @@ The Docker runtime uses production builds with local development services and HT
 ## Shopping and design update
 
 See [the October improvement and verification report](docs/verification/SHOPPING_IMPROVEMENTS.md) for implemented features, screenshots, and integration checks still needed before launch.
+
+See [the red storefront update](docs/verification/RED_STOREFRONT.md) for the October 12 design, LKR pricing and browser checks. [Optional sample catalog setup](docs/SAMPLE_CATALOG.md) includes photographed products from LKR 200 to premium picks.
