@@ -40,7 +40,7 @@ export default function AccountDashboardPage() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/5 text-primary">
             <Package className="h-6 w-6" />
           </div>
           <div>

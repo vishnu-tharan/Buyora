@@ -34,7 +34,7 @@ export default async function InformationPage({ params }: { params: Promise<{ in
   const store = await storeService.info().catch(() => unavailableStoreInfo);
   return (
     <div className="container mx-auto max-w-screen-xl px-4 py-8 md:py-12">
-      <div className="mb-8 rounded-3xl bg-[#e8eff0] p-7 md:p-12">
+      <div className="mb-8 rounded-3xl bg-[#fff1f2] p-7 md:p-12">
         <span className="text-primary mb-5 inline-flex size-14 items-center justify-center rounded-2xl bg-white">
           <Icon size={27} strokeWidth={1.5} aria-hidden="true" />
         </span>
@@ -258,7 +258,7 @@ export default async function InformationPage({ params }: { params: Promise<{ in
             </>
           )}
         </div>
-        <aside className="h-fit rounded-2xl bg-[#f1e5d6] p-6">
+        <aside className="h-fit rounded-2xl bg-[#fff1f2] p-6">
           <Headphones
             size={30}
             strokeWidth={1.5}

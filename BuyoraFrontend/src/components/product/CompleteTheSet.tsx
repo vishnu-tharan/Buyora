@@ -46,7 +46,7 @@ export function CompleteTheSet({
     return v ? [v] : [];
   });
   return (
-    <section className="mt-8 rounded-3xl border bg-[#e8eff0]/50 p-5 md:p-8">
+    <section className="mt-8 rounded-3xl border bg-[#fff1f2]/50 p-5 md:p-8">
       <h2 className="font-display mb-2 flex items-center gap-3 text-2xl font-semibold">
         <PackagePlus size={26} strokeWidth={1.5} aria-hidden="true" />
         Better together.
