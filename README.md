@@ -4,6 +4,17 @@ Developer: Vishnu
 
 The Next.js website is in **BuyoraFrontend/**. The Spring Boot API is in **BuyoraBackend/**.
 
+## Screenshots
+
+Responsive shopping in Sri Lankan rupees, with product discovery, saved favourites, comparison, cart and guest checkout.
+
+<p>
+  <a href="docs/screenshots/desktop-home.png"><img src="docs/screenshots/desktop-home.png" alt="Buyora desktop storefront with a professional red theme and LKR product prices" width="74%" /></a>
+  <a href="docs/screenshots/mobile-home.png"><img src="docs/screenshots/mobile-home.png" alt="Buyora mobile storefront" width="21%" /></a>
+</p>
+
+[View all 10 screenshots and portfolio downloads](docs/screenshots/README.md). Captured from the running local application with sample products and example LKR prices.
+
 ## Running Buyora with Docker
 
 Install and start Docker Desktop with Linux containers, or Docker Engine with Compose v2 or later. You do not need Node.js, Java, Maven, PostgreSQL or Redis on the host to run the application.
