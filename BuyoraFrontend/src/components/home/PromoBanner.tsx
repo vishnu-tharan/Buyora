@@ -1,32 +1,55 @@
-import { ArrowUpRight, BadgePercent, Tag } from 'lucide-react';
+import { ArrowUpRight, Coins, Gem, Wallet } from 'lucide-react';
 import Link from 'next/link';
 export function PromoBanner() {
+  const budgets = [
+    {
+      title: 'Everyday value',
+      range: 'LKR 200 – 5,000',
+      detail: 'Little finds that go a long way.',
+      href: '/search?minPrice=200&maxPrice=5000&sort=PRICE_ASC',
+      icon: Coins,
+    },
+    {
+      title: 'Your next upgrade',
+      range: 'LKR 5,000 – 25,000',
+      detail: 'More choice for your everyday.',
+      href: '/search?minPrice=5000&maxPrice=25000',
+      icon: Wallet,
+    },
+    {
+      title: 'Premium picks',
+      range: 'LKR 25,000 & above',
+      detail: 'Make room for something special.',
+      href: '/search?minPrice=25000&sort=PRICE_DESC',
+      icon: Gem,
+    },
+  ];
   return (
-    <section className="container mx-auto max-w-screen-xl px-4 py-6">
-      <div className="relative flex flex-col justify-between gap-6 overflow-hidden rounded-3xl bg-[#f1e5d6] p-7 md:flex-row md:items-center md:p-10">
-        <div className="flex items-center gap-5">
-          <span className="border-primary/10 text-primary hidden size-20 shrink-0 items-center justify-center rounded-3xl border bg-white/40 sm:flex">
-            <BadgePercent size={40} strokeWidth={1.3} aria-hidden="true" />
-          </span>
-          <div>
-            <p className="text-primary mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase">
-              <Tag size={14} aria-hidden="true" /> A good find feels even better
-            </p>
-            <h2 className="font-display text-3xl font-semibold tracking-tight">
-              Small prices. Big possibilities.
-            </h2>
-            <p className="text-muted-foreground mt-2 text-sm">
-              Discover current offers on selected products.
-            </p>
-          </div>
-        </div>
+    <section
+      aria-label="Shop by budget"
+      className="container mx-auto grid max-w-screen-xl gap-4 px-4 py-6 md:grid-cols-3"
+    >
+      {budgets.map(({ title, range, detail, href, icon: Icon }) => (
         <Link
-          href="/deals"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex min-h-12 shrink-0 items-center justify-center gap-5 rounded-full px-6 text-sm font-semibold transition"
+          key={title}
+          href={href}
+          className="group border-primary/10 bg-primary/5 hover:border-primary/30 hover:bg-primary/10 rounded-2xl border p-6 transition"
         >
-          Explore deals <ArrowUpRight size={18} aria-hidden="true" />
+          <div className="mb-5 flex items-center justify-between">
+            <Icon size={26} strokeWidth={1.5} className="text-primary" aria-hidden="true" />
+            <ArrowUpRight
+              size={19}
+              className="text-primary transition group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </div>
+          <p className="text-muted-foreground mb-1 text-xs font-semibold tracking-wider uppercase">
+            {title}
+          </p>
+          <h2 className="font-display text-xl font-bold">{range}</h2>
+          <p className="text-muted-foreground mt-2 text-sm">{detail}</p>
         </Link>
-      </div>
+      ))}
     </section>
   );
 }

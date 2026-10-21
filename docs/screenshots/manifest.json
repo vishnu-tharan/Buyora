@@ -1,0 +1,109 @@
+{
+  "capturedAt": "2026-10-21T19:15:29.393Z",
+  "source": "Running local Docker application",
+  "catalog": "Sample product photos, LKR prices and quantities",
+  "desktopScale": 2,
+  "mobileScale": 2,
+  "captures": [
+    {
+      "file": "desktop-home.png",
+      "title": "Desktop storefront",
+      "route": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "file": "desktop-home-full.jpg",
+      "title": "Complete storefront",
+      "route": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true
+    },
+    {
+      "file": "desktop-catalog.png",
+      "title": "Product discovery and filters",
+      "route": "/category/electronics",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "file": "desktop-product.png",
+      "title": "Product details and LKR pricing",
+      "route": "/product/sample-headphones",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "file": "desktop-wishlist.png",
+      "title": "Saved favourites",
+      "route": "/wishlist",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "file": "desktop-comparison.png",
+      "title": "Side-by-side product comparison",
+      "route": "/compare",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "file": "desktop-cart.png",
+      "title": "Shopping cart",
+      "route": "/cart",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "file": "desktop-checkout.png",
+      "title": "Guest checkout",
+      "route": "/checkout",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "file": "mobile-home.png",
+      "title": "Mobile storefront",
+      "route": "/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false
+    },
+    {
+      "file": "mobile-product.png",
+      "title": "Mobile product details",
+      "route": "/product/sample-headphones",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false
+    }
+  ]
+}

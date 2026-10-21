@@ -13,7 +13,7 @@ import { useLogout } from '@/hooks/use-logout';
 import { useAuthStore } from '@/stores/auth.store';
 import { useCartStore } from '@/stores/cart.store';
 import { useUIStore } from '@/stores/ui.store';
-import { Columns3, Heart, Layers3, Menu, Search, ShoppingBag } from 'lucide-react';
+import { Columns3, Heart, Menu, Search, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { MegaMenu } from './MegaMenu';
@@ -43,7 +43,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="bg-background sticky top-0 z-40 w-full border-b shadow-sm">
+    <header className="bg-white/95 sticky top-0 z-40 w-full border-b border-primary/10 shadow-sm backdrop-blur-lg">
       <div className="container mx-auto flex h-20 max-w-screen-xl items-center justify-between gap-4 px-4">
         {/* Mobile Left */}
         <div className="flex items-center xl:hidden">
@@ -58,8 +58,8 @@ export function Header() {
             href="/"
             className="text-primary font-display inline-flex items-center gap-2 text-2xl font-bold tracking-tight"
           >
-            <Layers3 size={25} strokeWidth={1.5} aria-hidden="true" /> Buyora
-            <span className="text-[#b95728]">.</span>
+            <ShoppingBag size={25} strokeWidth={1.5} aria-hidden="true" /> Buyora
+            <span className="text-[#b91c1c]">.</span>
           </Link>
         </div>
 

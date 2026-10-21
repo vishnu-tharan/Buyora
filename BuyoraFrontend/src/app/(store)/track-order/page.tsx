@@ -23,7 +23,7 @@ export default function TrackOrderPage() {
   });
   return (
     <div className="container mx-auto max-w-2xl px-4 py-12">
-      <div className="mb-8 rounded-3xl bg-[#e8eff0] p-8">
+      <div className="mb-8 rounded-3xl bg-[#fff1f2] p-8">
         <PackageSearch
           size={35}
           strokeWidth={1.5}

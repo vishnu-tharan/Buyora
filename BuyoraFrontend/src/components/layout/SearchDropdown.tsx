@@ -1,5 +1,6 @@
 'use client';
 
+import { formatCurrency } from '@/lib/formatting/currency';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { parseStoredArray, useBrowserStorage } from '@/hooks/use-browser-storage';
@@ -216,7 +217,7 @@ export function SearchDropdown() {
                             <div className="flex-1 overflow-hidden">
                               <p className="truncate text-sm font-medium">{p.name}</p>
                               <p className="text-muted-foreground text-xs">
-                                {p.price ? 'LKR ' + p.price : ''}
+                                {p.price !== undefined ? formatCurrency(p.price) : ''}
                               </p>
                             </div>
                           </button>

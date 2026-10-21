@@ -1,6 +1,6 @@
 // Deterministic, local-only UI fixtures. This does not connect to a database,
 // contact a payment provider, or send emails. Never use this as the store backend.
-const http = require('node:http');
+import http from 'node:http';
 const categories = [
  {id:1,publicId:'00000000-0000-4000-8000-000000000001',name:'Electronics',slug:'electronics',level:0,productCount:3,children:[]},
  {id:2,publicId:'00000000-0000-4000-8000-000000000002',name:'Home & Living',slug:'home-living',level:0,productCount:2,children:[]},

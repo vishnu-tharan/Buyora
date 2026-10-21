@@ -10,6 +10,14 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
     <div className="flex min-h-screen flex-col">
       <AnnouncementBar />
       <Header />
+      {process.env.STOREFRONT_DEMO_CATALOG === 'true' && (
+        <div
+          role="note"
+          className="bg-muted text-muted-foreground border-b px-4 py-2 text-center text-[11px]"
+        >
+          Sample collection · Prices and availability are examples in Sri Lankan rupees.
+        </div>
+      )}
       <main id="main-content" className="flex-1">
         {children}
       </main>

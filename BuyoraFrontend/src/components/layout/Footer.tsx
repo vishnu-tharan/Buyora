@@ -1,4 +1,4 @@
-import { ArrowUpRight, CreditCard, Layers3, PackageCheck } from 'lucide-react';
+import { ArrowUpRight, CreditCard, ShoppingBag, PackageCheck } from 'lucide-react';
 import Link from 'next/link';
 export function Footer() {
   const groups = [
@@ -33,7 +33,7 @@ export function Footer() {
     },
   ];
   return (
-    <footer className="mt-10 border-t bg-[#132d35] text-white">
+    <footer className="mt-10 border-t bg-[#24191c] text-white">
       <div className="container mx-auto max-w-screen-xl px-4 py-12 md:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
@@ -41,8 +41,8 @@ export function Footer() {
               href="/"
               className="font-display inline-flex items-center gap-2 text-3xl font-bold tracking-tight"
             >
-              <Layers3 className="text-[#ffc79b]" strokeWidth={1.5} aria-hidden="true" /> Buyora
-              <span className="text-[#ffc79b]">.</span>
+              <ShoppingBag className="text-[#fca5a5]" strokeWidth={1.5} aria-hidden="true" /> Buyora
+              <span className="text-[#fca5a5]">.</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-7 text-white/60">
               Good finds for your everyday.

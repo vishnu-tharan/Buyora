@@ -30,15 +30,15 @@
 @layer base {
   :root {
     /* Brand colors */
-    --color-primary: 194 47% 18%;
+    --color-primary: 0 72% 41%;
     --color-primary-foreground: 0 0% 100%;
-    --color-primary-light: 224 71% 55%;
-    --color-primary-dark: 224 71% 28%;
+    --color-primary-light: 0 80% 55%;
+    --color-primary-dark: 0 74% 30%;
 
-    --color-secondary: 262 52% 47%;
+    --color-secondary: 0 30% 30%;
     --color-secondary-foreground: 0 0% 100%;
 
-    --color-accent: 20 90% 55%;
+    --color-accent: 0 72% 41%;
     --color-accent-foreground: 0 0% 100%;
 
     /* Semantic colors */
@@ -56,19 +56,19 @@
     --color-info-foreground: 0 0% 100%;
 
     /* Neutral palette */
-    --color-background: 40 33% 98%;
-    --color-foreground: 220 20% 12%;
-    --color-muted: 220 15% 96%;
+    --color-background: 0 0% 99%;
+    --color-foreground: 350 12% 13%;
+    --color-muted: 350 14% 97%;
     --color-muted-foreground: 220 10% 40%;
     --color-border: 220 15% 90%;
     --color-input: 220 15% 90%;
-    --color-ring: 194 47% 28%;
+    --color-ring: 0 72% 41%;
 
     /* Card */
     --color-card: 0 0% 100%;
-    --color-card-foreground: 220 20% 12%;
+    --color-card-foreground: 350 12% 13%;
     --color-popover: 0 0% 100%;
-    --color-popover-foreground: 220 20% 12%;
+    --color-popover-foreground: 350 12% 13%;
 
     /* Typography scale */
     --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -101,7 +101,7 @@
 
   /* Dark mode preparation — variables override only */
   .dark {
-    --color-primary: 224 71% 60%;
+    --color-primary: 0 80% 70%;
     --color-primary-foreground: 0 0% 10%;
     --color-background: 220 20% 7%;
     --color-foreground: 220 15% 95%;
@@ -113,7 +113,7 @@
     --color-card-foreground: 220 15% 95%;
     --color-popover: 220 20% 10%;
     --color-popover-foreground: 220 15% 95%;
-    --color-ring: 224 71% 60%;
+    --color-ring: 0 80% 70%;
   }
 
   * {
