@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:tc:postgresql:16:///buyora_test}
+    username: test
+    password: test
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  flyway:
+    enabled: true
+    clean-disabled: false
+  jpa:
+    show-sql: false
+
+buyora:
+  security:
+    jwt:
+      secret: test-secret-key-that-is-at-least-256-bits-long-for-hs256
+      access-token-expiry-minutes: 15
+      refresh-token-expiry-days: 7
+    cookie:
+      secure: false
+      same-site: Lax
+    cors:
+      allowed-origins: http://localhost:3000
+  email:
+    from-name: Buyora Test
+    from-address: test@buyora.lk
+
+logging:
+  level:
+    com.buyora.api: INFO
+    root: WARN

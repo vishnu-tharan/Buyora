@@ -1,0 +1,13 @@
+package com.buyora.api.wishlist;
+
+import java.util.Optional;
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
+  Optional<Wishlist> findByUserId(Long userId);
+
+  Optional<Wishlist> findByPublicId(UUID publicId);
+}

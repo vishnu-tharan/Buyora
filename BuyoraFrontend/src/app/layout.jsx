@@ -1,0 +1,65 @@
+import '@/app/globals.css';
+import { SkipNavLink } from '@/components/a11y/SkipNavLink';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { SITE_NAME, SITE_URL } from '@/constants';
+import {
+  generateOrganizationStructuredData,
+  generateWebSiteStructuredData,
+} from '@/lib/structured-data';
+import { Providers } from '@/providers';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-jakarta',
+  display: 'swap',
+});
+
+export const metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: 'Discover quality products at Buyora — your modern online shopping destination.',
+  keywords: ['ecommerce', 'shopping', 'online store', 'Sri Lanka'],
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'en_LK',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Buyora — Your Online Shopping Destination',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body className={`${inter.variable} ${plusJakarta.variable} font-sans antialiased`}>
+        <SkipNavLink />
+        <Providers>{children}</Providers>
+        <JsonLd data={generateOrganizationStructuredData()} />
+        <JsonLd data={generateWebSiteStructuredData()} />
+      </body>
+    </html>
+  );
+}

@@ -1,0 +1,127 @@
+{
+  "provider": "Unsplash",
+  "license": "https://unsplash.com/license",
+  "usage": "Local sample catalog; photographs do not represent owned stock.",
+  "photos": [
+    {
+      "name": "headphones",
+      "source": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/headphones.jpg"
+    },
+    {
+      "name": "speaker",
+      "source": "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/speaker.jpg"
+    },
+    {
+      "name": "watch",
+      "source": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/watch.jpg"
+    },
+    {
+      "name": "sunglasses",
+      "source": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/sunglasses.jpg"
+    },
+    {
+      "name": "backpack",
+      "source": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/backpack.jpg"
+    },
+    {
+      "name": "sneakers",
+      "source": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/sneakers.jpg"
+    },
+    {
+      "name": "tshirt",
+      "source": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/tshirt.jpg"
+    },
+    {
+      "name": "lamp",
+      "source": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/lamp.jpg"
+    },
+    {
+      "name": "chair",
+      "source": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/chair.jpg"
+    },
+    {
+      "name": "mug",
+      "source": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/mug.jpg"
+    },
+    {
+      "name": "bottle",
+      "source": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/bottle.jpg"
+    },
+    {
+      "name": "skincare",
+      "source": "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/skincare.jpg"
+    },
+    {
+      "name": "perfume",
+      "source": "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/perfume.jpg"
+    },
+    {
+      "name": "camera",
+      "source": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/camera.jpg"
+    },
+    {
+      "name": "books",
+      "source": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/books.jpg"
+    },
+    {
+      "name": "keyboard",
+      "source": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/keyboard.jpg"
+    },
+    {
+      "name": "dumbbells",
+      "source": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/dumbbells.jpg"
+    },
+    {
+      "name": "handbag",
+      "source": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/handbag.jpg"
+    },
+    {
+      "name": "candle",
+      "source": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/candle.jpg"
+    },
+    {
+      "name": "notebook",
+      "source": "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/notebook.jpg"
+    },
+    {
+      "name": "laptop",
+      "source": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/laptop.jpg"
+    },
+    {
+      "name": "phone",
+      "source": "https://images.unsplash.com/photo-1603891128711-11b4b03bb138?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/phone.jpg"
+    },
+    {
+      "name": "earbuds",
+      "source": "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/earbuds.jpg"
+    },
+    {
+      "name": "plant",
+      "source": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1000&q=85",
+      "file": "/products/plant.jpg"
+    }
+  ]
+}

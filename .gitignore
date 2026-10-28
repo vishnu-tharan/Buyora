@@ -1,0 +1,27 @@
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies and generated output
+**/node_modules/
+**/.next/
+**/target/
+**/coverage/
+**/playwright-report/
+**/test-results/
+*.dump
+*.log
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local verification output
+/.local/
